@@ -72,7 +72,7 @@ Cybersecurity Master’s student focused on offensive & defensive security, clou
 Hands-on experience with:
 
 * AWS cloud labs
-* Hack The Box (penetration testing & SOC paths)
+* Hack The Box (penetration testing )
 
 ---
 
