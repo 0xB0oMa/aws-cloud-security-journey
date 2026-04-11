@@ -94,6 +94,39 @@ I also reviewed the basic IAM policy structure:
 - **Action** – specific API calls (for example, `ec2:DescribeInstances`).
 - **Resource** – which resources the rule applies to (specific ARNs or `*`).
 
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:Describe*",
+                "ec2:GetSecurityGroupsForVpc"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "elasticloadbalancing:Describe*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:ListMetrics",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:Describe*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "autoscaling:Describe*",
+            "Resource": "*"
+        }
+    ]
+}
+
 #### 5.2.2 S3-Support Group (Managed Policy)
 
 1. Opened the **S3-Support** group → **Permissions** tab.
