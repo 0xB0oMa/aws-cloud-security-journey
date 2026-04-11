@@ -16,6 +16,8 @@ By the end of the lab I was able to:
 
 ## 3. Lab Environment
 
+![lab environment](images/lab-environment.PNG)
+
 - Pre‑created IAM users: `user-1`, `user-2`, `user-3`
 - Pre‑created IAM groups:
   - `S3-Support` – Amazon S3 read‑only
