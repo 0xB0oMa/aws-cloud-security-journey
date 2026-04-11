@@ -48,7 +48,7 @@ The rest of the lab implements and tests this scenario.
 3. Confirmed the following users existed: `user-1`, `user-2`, `user-3`.
 
 *(screenshot suggestion)*  
-`![IAM users list](./images/task1-users-list.png)`
+![IAM users list](./images/task1-users-list.png)
 
 4. Chose **user-1** to open the user summary page.
    - On the **Permissions** tab, user‑1 had **no permissions** attached.
@@ -56,7 +56,7 @@ The rest of the lab implements and tests this scenario.
    - On the **Security credentials** tab, user‑1 had a **console password** configured.
 
 *(screenshot suggestion)*  
-`![user-1 summary page](./images/task1-user1-summary.png)`
+![user-1 summary page](./images/task1-user1-summary.png)
 
 ### 5.2 Inspect IAM Groups and Policies
 
@@ -68,7 +68,7 @@ The rest of the lab implements and tests this scenario.
    - `S3-Support`
 
 *(screenshot suggestion)*  
-`![IAM user groups list](./images/task1-groups-list.png)`
+![IAM user groups list](./images/task1-groups-list.png)
 
 #### 5.2.1 EC2-Support Group (Managed Policy)
 
@@ -86,7 +86,7 @@ Key observations:
 - This makes it ideal for a **support** role that needs visibility but no modification rights.
 
 *(screenshot suggestion)*  
-`![EC2-Support managed policy details](./images/task1-ec2-support-policy.png)`
+![EC2-Support managed policy details](./images/task1-ec2-support-policy.png)
 
 I also reviewed the basic IAM policy structure:
 
@@ -94,6 +94,7 @@ I also reviewed the basic IAM policy structure:
 - **Action** – specific API calls (for example, `ec2:DescribeInstances`).
 - **Resource** – which resources the rule applies to (specific ARNs or `*`).
 
+```json
   {
     "Version": "2012-10-17",
     "Statement": [
@@ -126,6 +127,7 @@ I also reviewed the basic IAM policy structure:
         }
     ]
 }
+```
 
 #### 5.2.2 S3-Support Group (Managed Policy)
 
@@ -139,7 +141,7 @@ Key observations:
 - Enables viewing buckets and objects without making changes.
 
 *(screenshot suggestion)*  
-`![S3-Support managed policy details](./images/task1-s3-support-policy.png)`
+![S3-Support managed policy details](./images/task1-s3-support-policy.png)
 
 #### 5.2.3 EC2-Admin Group (Inline Policy)
 
@@ -154,7 +156,7 @@ Key observations:
 - Inline policies are attached to exactly one user or group and are often used for **one‑off** permissions.
 
 *(screenshot suggestion)*  
-`![EC2-Admin inline policy details](./images/task1-ec2-admin-inline.png)`
+![EC2-Admin inline policy details](./images/task1-ec2-admin-inline.png)
 
 ---
 
@@ -173,7 +175,7 @@ The goal is to enforce the business scenario by mapping each user to the correct
 Result: `user-1` now appears as a member of the **S3-Support** group and inherits `AmazonS3ReadOnlyAccess`.
 
 *(screenshot suggestion)*  
-`![user-1 added to S3-Support group](./images/task2-user1-s3-support.png)`
+![user-1 added to S3-Support group](./images/task2-user1-s3-support.png)
 
 ### 6.2 Add user‑2 to EC2-Support
 
@@ -184,7 +186,7 @@ Result: `user-1` now appears as a member of the **S3-Support** group and inherit
 Result: `user-2` now has **EC2 read‑only** permissions.
 
 *(screenshot suggestion)*  
-`![user-2 added to EC2-Support group](./images/task2-user2-ec2-support.png)`
+![user-2 added to EC2-Support group](./images/task2-user2-ec2-support.png)
 
 ### 6.3 Add user‑3 to EC2-Admin
 
@@ -194,7 +196,7 @@ Result: `user-2` now has **EC2 read‑only** permissions.
 Result: `user-3` now has **EC2 admin** permissions (view, start, stop instances).
 
 *(screenshot suggestion)*  
-`![user-3 added to EC2-Admin group](./images/task2-user3-ec2-admin.png)`
+![user-3 added to EC2-Admin group](./images/task2-user3-ec2-admin.png)
 
 ### 6.4 Verify Group Membership
 
@@ -216,7 +218,7 @@ Back on the **User groups** page each group now showed **1** in the **Users** co
 3. Pasted it into a text editor for reuse.
 
 *(screenshot suggestion)*  
-`![IAM dashboard sign-in URL](./images/task3-iam-signin-url.png)`
+![IAM dashboard sign-in URL](./images/task3-iam-signin-url.png)
 
 Opened a **private / incognito** browser window for the following tests.
 
@@ -241,7 +243,7 @@ Result:
 - The bucket was empty, but listing worked, confirming **S3 read‑only**.
 
 *(screenshot suggestion)*  
-`![user-1 viewing S3 bucket](./images/task3-user1-s3-access.png)`
+![user-1 viewing S3 bucket](./images/task3-user1-s3-access.png)
 
 **Test EC2 access**
 
@@ -254,7 +256,7 @@ Result:
 - `user-1` has **no EC2 permissions**, which matches the scenario.
 
 *(screenshot suggestion)*  
-`![user-1 EC2 access denied](./images/task3-user1-ec2-denied.png)`
+![user-1 EC2 access denied](./images/task3-user1-ec2-denied.png)
 
 Signed out as `user-1` from the console.
 
@@ -282,7 +284,7 @@ Result:
 - Confirms that `user-2` can **view** EC2 instances but **cannot modify** them.
 
 *(screenshot suggestion)*  
-`![user-2 EC2 read-only and failed stop](./images/task3-user2-ec2-readonly.png)`
+![user-2 EC2 read-only and failed stop](./images/task3-user2-ec2-readonly.png)
 
 **Test S3 access**
 
@@ -294,7 +296,7 @@ Result:
 - Confirms that `user-2` has **no S3 permissions**.
 
 *(screenshot suggestion)*  
-`![user-2 S3 access denied](./images/task3-user2-s3-denied.png)`
+![user-2 S3 access denied](./images/task3-user2-s3-denied.png)
 
 Signed out as `user-2`.
 
@@ -319,7 +321,7 @@ Result:
 - Confirms that `user-3` has **admin‑level EC2 permissions** (Describe, Start, Stop).
 
 *(screenshot suggestion)*  
-`![user-3 stopping LabHost instance](./images/task3-user3-ec2-admin.png)`
+![user-3 stopping LabHost instance](./images/task3-user3-ec2-admin.png)
 
 Closed the private browser window after finishing the tests.
 
