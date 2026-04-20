@@ -57,3 +57,55 @@ The NAT Gateway took a few minutes to activate. I waited until all resources wer
 
 ---
 
+### Task 2: Create Additional Subnets
+
+In this task, I created two additional subnets for the VPC in a second Availability Zone. Having subnets in multiple Availability Zones within a VPC is useful for deploying solutions that provide High Availability.
+
+#### Steps Performed:
+
+**1. Created second public subnet:**
+
+| Parameter | Value |
+|-----------|-------|
+| VPC ID | lab-vpc |
+| Subnet name | lab-subnet-public2 |
+| Availability Zone | us-east-1b |
+| IPv4 CIDR block | 10.0.2.0/24 |
+
+**2. Created second private subnet:**
+
+| Parameter | Value |
+|-----------|-------|
+| VPC ID | lab-vpc |
+| Subnet name | lab-subnet-private2 |
+| Availability Zone | us-east-1b |
+| IPv4 CIDR block | 10.0.3.0/24 |
+
+**3. Updated Private Route Table associations:**
+
+I selected the `lab-rtb-private1-us-east-1a` route table and associated it with both private subnets:
+- lab-subnet-private1 (AZ A)
+- lab-subnet-private2 (AZ B)
+
+**4. Updated Public Route Table associations:**
+
+I selected the `lab-rtb-public` route table and associated it with both public subnets:
+- lab-subnet-public1 (AZ A)
+- lab-subnet-public2 (AZ B)
+
+#### Result:
+
+> **[SCREENSHOT HERE – Insert screenshot showing all 4 subnets in the Subnets list]**
+
+> **[SCREENSHOT HERE – Insert screenshot of Public Route Table showing 0.0.0.0/0 → Internet Gateway]**
+
+> **[SCREENSHOT HERE – Insert screenshot of Private Route Table showing 0.0.0.0/0 → NAT Gateway]**
+
+My VPC now has public and private subnets configured in two Availability Zones. The route tables created in Task 1 have been updated to route network traffic for the two new subnets.
+
+| Subnet Name | Availability Zone | CIDR | Route Table |
+|-------------|-------------------|------|-------------|
+| lab-subnet-public1 | us-east-1a | 10.0.0.0/24 | Public (→ IGW) |
+| lab-subnet-public2 | us-east-1b | 10.0.2.0/24 | Public (→ IGW) |
+| lab-subnet-private1 | us-east-1a | 10.0.1.0/24 | Private (→ NAT) |
+| lab-subnet-private2 | us-east-1b | 10.0.3.0/24 | Private (→ NAT) |
