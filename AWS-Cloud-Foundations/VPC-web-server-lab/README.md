@@ -194,7 +194,7 @@ In the **Configure storage** section, I kept the default settings. The default s
 **9. Added User Data script:**
 
 I expanded the **Advanced details** panel and scrolled to the bottom of the page. I copied and pasted the following script into the **User data** box:
-``` [#]!/bin/bash
+``` ##!/bin/bash
 # Install Apache Web Server and PHP
 dnf install -y httpd wget php mariadb105-server
 # Download Lab files
