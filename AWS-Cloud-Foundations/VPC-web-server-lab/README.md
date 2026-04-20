@@ -20,5 +20,5 @@ After completing this lab, I was able to:
 
 ## 3. Architecture & Scenario
 
-
+![lab environment](images/architecture.png)
 
