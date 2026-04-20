@@ -33,7 +33,7 @@ This section documents my learning journey through AWS Cloud Foundations, coveri
 ## 🧪 Labs
 
 * 🔐 [IAM Introduction Lab](IAM-Introduction-Lab//writeup.md)
-* 🌐 VPC Web Server Lab
+* 🌐 [VPC Web Server Lab](VPC-web-server-lab/writeup.md)
 * 🖥️ EC2 Lab
 * 📦 EBS Lab
 * 🗄️ RDS Lab
