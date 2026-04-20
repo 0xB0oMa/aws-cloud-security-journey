@@ -22,6 +22,8 @@ After completing this lab, I was able to:
 
 ![lab environment](images/architecture.png)
 
+---
+
 ### Task 1: Create Your VPC
 
 I used the **VPC and more** option in the VPC console to create multiple resources at once, including a VPC, an Internet Gateway, a public subnet and a private subnet in a single Availability Zone, two route tables, and a NAT Gateway.
@@ -109,3 +111,34 @@ My VPC now has public and private subnets configured in two Availability Zones. 
 | lab-subnet-public2 | us-east-1b | 10.0.2.0/24 | Public (→ IGW) |
 | lab-subnet-private1 | us-east-1a | 10.0.1.0/24 | Private (→ NAT) |
 | lab-subnet-private2 | us-east-1b | 10.0.3.0/24 | Private (→ NAT) |
+
+---
+
+### Task 3: Create a VPC Security Group
+
+In this task, I created a VPC security group, which acts as a virtual firewall. When launching an instance, I will associate this security group with the instance to control inbound and outbound traffic.
+
+#### Steps Performed:
+
+1. In the VPC console, I navigated to **Security groups** in the left navigation pane.
+2. I clicked **Create security group** and configured the following:
+
+| Parameter | Value |
+|-----------|-------|
+| Security group name | Web Security Group |
+| Description | Enable HTTP access |
+| VPC | lab-vpc |
+
+3. In the **Inbound rules** pane, I clicked **Add rule** and configured:
+
+| Type | Source | Description |
+|------|--------|-------------|
+| HTTP | Anywhere-IPv4 (0.0.0.0/0) | Permit web requests |
+
+4. I clicked **Create security group** at the bottom of the page.
+
+#### Result:
+
+> **[SCREENSHOT HERE – Insert screenshot of the Security Group inbound rules showing HTTP from 0.0.0.0/0]**
+
+This security group permits HTTP (port 80) access to any associated EC2 instance from anywhere on the internet. I will use this security group in the next task when launching the web server instance.
