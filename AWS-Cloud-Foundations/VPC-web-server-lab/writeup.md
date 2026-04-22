@@ -97,7 +97,7 @@ I selected the `lab-rtb-public` route table and associated it with both public s
 
 #### Result:
 
-> **[SCREENSHOT HERE – Insert screenshot showing all 4 subnets in the Subnets list]**
+> ![4 subnets](images/4-subnets-in-the-Subnets-list.PNG)
 
 > **[SCREENSHOT HERE – Insert screenshot of Public Route Table showing 0.0.0.0/0 → Internet Gateway]**
 
