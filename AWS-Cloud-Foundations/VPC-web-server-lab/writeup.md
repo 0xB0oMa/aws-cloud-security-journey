@@ -53,7 +53,7 @@ I used the **VPC and more** option in the VPC console to create multiple resourc
 - Internet Gateway: lab-igw
 - NAT Gateway: lab-nat-public1-us-east-1a
 
-> **[SCREENSHOT HERE – Insert the Task 1 result diagram]**
+> ![task 1 diagram](images/task1 diagram.PNG)
 
 The NAT Gateway took a few minutes to activate. I waited until all resources were created before proceeding.
 
