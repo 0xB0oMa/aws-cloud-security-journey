@@ -99,9 +99,9 @@ I selected the `lab-rtb-public` route table and associated it with both public s
 
 > ![4 subnets](images/4-subnets-in-the-Subnets-list.PNG)
 
-> **[SCREENSHOT HERE – Insert screenshot of Public Route Table showing 0.0.0.0/0 → Internet Gateway]**
+> ![route table internet gateway](images/Public-Route-Table-showing-0.0.0.0-0-Internet-Gateway.PNG)
 
-> **[SCREENSHOT HERE – Insert screenshot of Private Route Table showing 0.0.0.0/0 → NAT Gateway]**
+> ![route table nat gateway](images/Private-Route-Table-showing-0.0.0.0-0-NAT-Gateway.PNG)
 
 My VPC now has public and private subnets configured in two Availability Zones. The route tables created in Task 1 have been updated to route network traffic for the two new subnets.
 
@@ -139,7 +139,7 @@ In this task, I created a VPC security group, which acts as a virtual firewall. 
 
 #### Result:
 
-> **[SCREENSHOT HERE – Insert screenshot of the Security Group inbound rules showing HTTP from 0.0.0.0/0]**
+> ![group inbound rules](images/Security-Group-inbound-rules-showing-HTTP-from-0.0.0.0-0.png)
 
 This security group permits HTTP (port 80) access to any associated EC2 instance from anywhere on the internet. I will use this security group in the next task when launching the web server instance.
 
@@ -208,7 +208,7 @@ service httpd start
 
 This script will run with root user permissions on the guest OS of the instance. It will run automatically when the instance launches for the first time. The script installs a web server, a database, and PHP libraries, and then it downloads and installs a PHP web application on the web server.
 
-> **[SCREENSHOT HERE – Insert screenshot of User Data script in Advanced details panel]**
+> ![user data script](images/User-Data-script-in-Advanced-details-panel.PNG)
 
 **10. Launched the instance:**
 
@@ -224,10 +224,10 @@ I selected **Web Server 1**, then copied the **Public IPv4 DNS** value shown in 
 
 #### Result:
 
-> **[SCREENSHOT HERE – Insert screenshot of web browser showing AWS logo and instance metadata]**
+> ![web browser](images/web-browser-showing-AWS-logo-and-instance-metadata.PNG)
 
 I saw a web page displaying the AWS logo and instance meta-data values.
 
 **The complete architecture I deployed is:**
 
-> **[SCREENSHOT HERE – Insert the complete architecture diagram]**
+> ![final architecture](images/task4-diagram.PNG)
