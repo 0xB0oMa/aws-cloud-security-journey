@@ -80,7 +80,13 @@ I removed the default inbound rule.
 
 I scrolled to the bottom and pasted the following script into the **User data** box:
 
-[here write the bash script]
+```
+#!/bin/bash
+dnf install -y httpd
+systemctl enable httpd
+systemctl start httpd
+echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
+```
 
 **Step 8: Launch the instance**
 
