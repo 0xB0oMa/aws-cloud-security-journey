@@ -262,6 +262,8 @@ I selected **Web Server** again and from the **Instance state** menu selected **
 
 ## 4. Complete Architecture
 
+![complete architecture diagram](images/complete-architecture-diagram.PNG)
+
 | Component | Configuration |
 |-----------|--------------|
 | EC2 Instance Name | Web Server |
