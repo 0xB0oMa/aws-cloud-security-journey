@@ -18,7 +18,7 @@ After completing this lab, I was able to:
 
 ## 2. Architecture
 
-> **[SCREENSHOT HERE – Insert architecture diagram]**
+![architecture diagram](images/Architecture-diagram.PNG)
 
 ## 3. Tasks Performed
 
@@ -103,7 +103,7 @@ I waited until the instance displayed:
 | Instance State | Running |
 | Status Checks | 2/2 checks passed |
 
-> **[SCREENSHOT HERE – Insert screenshot of EC2 instance running with 2/2 checks passed]**
+![EC2 instance running with 2/2 checks passed](images/EC2-instance-running-with-2-2-checks-passed.PNG)
 
 ### 3.2 Monitor Your Instance
 
@@ -118,13 +118,13 @@ I chose the **Status checks** tab and noticed that both checks passed:
 | System reachability | Passed |
 | Instance reachability | Passed |
 
-> **[SCREENSHOT HERE – Insert screenshot of Status checks tab showing both checks passed]**
+![Status checks tab showing both checks passed](images/Status-checks-tab-showing-both-checks-passed.PNG)
 
 **Monitoring tab:**
 
 I chose the **Monitoring** tab to view Amazon CloudWatch metrics for my instance.
 
-> **[SCREENSHOT HERE – Insert screenshot of Monitoring tab showing CloudWatch metrics]**
+![Monitoring tab showing CloudWatch metrics](images/Monitoring-tab-showing-CloudWatch-metrics.PNG)
 
 **Get system log:**
 
@@ -132,7 +132,7 @@ From the **Actions** menu, I selected **Monitor and troubleshoot** → **Get sys
 
 I scrolled through the output and noted that the HTTP package was installed from the user data.
 
-> **[SCREENSHOT HERE – Insert screenshot of System Log showing HTTP installation]**
+![System Log showing HTTP installation](images/System-Log-showing-HTTP-installation.PNG)
 
 I clicked **Cancel**.
 
@@ -140,7 +140,7 @@ I clicked **Cancel**.
 
 From the **Actions** menu, I selected **Monitor and troubleshoot** → **Get instance screenshot**.
 
-> **[SCREENSHOT HERE – Insert screenshot of instance screenshot]**
+![instance screenshot](images/instance-screenshot.PNG)
 
 I clicked **Cancel**.
 
@@ -154,7 +154,7 @@ I opened a new browser tab, pasted the IP address, and pressed Enter.
 
 **Result:** I was not able to access the web server because the security group was not permitting inbound traffic on port 80.
 
-> **[SCREENSHOT HERE – Insert screenshot of browser showing unable to access web server]**
+![browser showing unable to access web server](images/browser-showing-unable-to-access-web-server.PNG)
 
 **Update security group:**
 
@@ -172,7 +172,7 @@ I chose **Edit inbound rules**, then **Add rule** and configured:
 
 I chose **Save rules**.
 
-> **[SCREENSHOT HERE – Insert screenshot of Security Group inbound rules showing HTTP from 0.0.0.0/0]**
+![Security Group inbound rules showing HTTP from 0.0.0.0/0](images/Security-Group-inbound-rules-showing-HTTP-from-0.0.0.0-0.PNG)
 
 **Test web server access (after fixing security group):**
 
@@ -180,7 +180,7 @@ I returned to the web browser tab and refreshed the page.
 
 **Result:** I saw the message "Hello From Your Web Server!"
 
-> **[SCREENSHOT HERE – Insert screenshot of browser showing Hello From Your Web Server message]**
+![browser showing Hello From Your Web Server message](images/browser-showing-Hello-From-Your-Web-Server-message.PNG)
 
 ### 3.4 Resize Your Instance
 
@@ -192,7 +192,7 @@ From the **Instance state** menu, I selected **Stop instance**, then chose **Sto
 
 I waited until the Instance state displayed **Stopped**.
 
-> **[SCREENSHOT HERE – Insert screenshot of instance showing Stopped state]**
+![instance showing Stopped state](images/instance-showing-Stopped-state.PNG)
 
 **Change the instance type and enable stop protection:**
 
@@ -206,7 +206,7 @@ I chose **Apply**.
 
 I selected **Web Server**, then from the **Actions** menu selected **Instance settings** → **Change stop protection**. I selected **Enable** and saved the change.
 
-> **[SCREENSHOT HERE – Insert screenshot of Change instance type configuration showing t2.small]**
+![Change instance type configuration showing t2.small](images/Change-instance-type-configuration-showing-t2.small.PNG)
 
 **Resize the EBS Volume:**
 
@@ -220,13 +220,13 @@ From the **Actions** menu, I selected **Modify volume** and changed:
 
 I chose **Modify**, then **Modify** again to confirm.
 
-> **[SCREENSHOT HERE – Insert screenshot of Modify volume showing size changed to 10 GiB]**
+![Modify volume showing size changed to 10 GiB](images/Modify-volume-showing-size-changed-to-10-GiB.PNG)
 
 **Start the resized instance:**
 
 From the **Instance state** menu, I selected **Start instance**.
 
-> **[SCREENSHOT HERE – Insert screenshot of instance showing Running state after resizing]**
+![instance showing Running state after resizing](images/instance-showing-Running-state-after-resizing.PNG)
 
 ### 3.5 Explore EC2 Limits
 
@@ -236,7 +236,7 @@ I chose **AWS services** from the navigation menu and searched for `ec2`, then s
 
 In the **Find quotas** search bar, I searched for `running on-demand` and observed the filtered list of service quotas.
 
-> **[SCREENSHOT HERE – Insert screenshot of EC2 service quotas showing running on-demand limits]**
+![EC2 service quotas showing running on-demand limits](images/EC2-service-quotas-showing-running-on-demand-limits.PNG)
 
 ### 3.6 Test Stop Protection
 
@@ -246,7 +246,7 @@ From the **Instance state** menu, I selected **Stop instance**, then chose **Sto
 
 **Result:** I saw a message: "Failed to stop the instance... The instance may not be stopped." This showed that stop protection was working.
 
-> **[SCREENSHOT HERE – Insert screenshot of stop protection error message]**
+![stop protection error message](images/stop-protection-error-message.PNG)
 
 **Disable stop protection:**
 
@@ -258,7 +258,7 @@ I removed the check next to **Enable** and chose **Save**.
 
 I selected **Web Server** again and from the **Instance state** menu selected **Stop instance**, then chose **Stop**.
 
-> **[SCREENSHOT HERE – Insert screenshot of instance showing Stopped state after disabling stop protection]**
+![instance showing Stopped state after disabling stop protection](images/instance-showing-Stopped-state-after-disabling-stop-protection.PNG)
 
 ## 4. Complete Architecture
 
