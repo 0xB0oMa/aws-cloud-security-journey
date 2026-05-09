@@ -1,86 +1,111 @@
 # Lab 3: Introduction to Amazon EC2
 
-## 1. Overview
+## Overview
 
-In this lab I launched, resized, managed, and monitored an Amazon EC2 instance. I launched a web server with termination protection enabled, monitored the instance using CloudWatch metrics and system logs, modified the security group to allow HTTP access, resized the instance to scale, explored EC2 limits, and tested stop protection.
+In this lab, I launched, resized, managed, and monitored an Amazon EC2 instance. I deployed a web server with termination protection enabled, monitored the instance using Amazon CloudWatch metrics and system logs, modified the security group to allow HTTP access, resized the instance to scale resources, explored EC2 service quotas, and tested stop protection.
 
-Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. Amazon EC2 provides complete control of computing resources and reduces the time required to obtain and boot new server instances to minutes, allowing you to quickly scale capacity as your computing requirements change.
+Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. Amazon EC2 provides complete control of computing resources and reduces the time required to obtain and boot new server instances to minutes, allowing rapid scaling based on application requirements.
 
 After completing this lab, I was able to:
 
 - Launch a web server with termination protection enabled
 - Monitor an EC2 instance
-- Modify the security group to allow HTTP access
-- Resize an Amazon EC2 instance to scale and enable stop protection
-- Explore EC2 limits
+- Modify a security group to allow HTTP access
+- Resize an EC2 instance and enable stop protection
+- Explore EC2 service quotas
 - Test stop protection
 - Stop an EC2 instance
 
-## 2. Architecture
+---
 
-![architecture diagram](images/Architecture-diagram.PNG)
+## Architecture Diagram
 
-## 3. Tasks Performed
+![Architecture Diagram](images/architecture-diagram.png)
 
-### 3.1 Launch Amazon EC2 Instance
+---
 
-In the AWS Management Console, I chose **Services**, then **Compute**, then **EC2**.
+# Task 1: Launch an Amazon EC2 Instance
 
-I verified that **N. Virginia (us-east-1)** region was selected.
+In the AWS Management Console, I navigated to:
+
+```text
+Services → Compute → EC2
+```
+
+I verified that the selected region was:
+
+```text
+N. Virginia (us-east-1)
+```
 
 From the **Launch instance** menu, I selected **Launch instance**.
 
-**Step 1: Name and tags**
+---
+
+## Step 1: Name and Tags
 
 | Configuration Setting | Value |
-|----------------------|-------|
+|---|---|
 | Name | Web Server |
 
-**Step 2: Application and OS Images (AMI)**
+---
+
+## Step 2: Application and OS Images (AMI)
 
 | Configuration Setting | Value |
-|----------------------|-------|
-| AMI | Amazon Linux 2023 (default) |
+|---|---|
+| AMI | Amazon Linux 2023 |
 
-**Step 3: Instance type**
+---
 
-| Configuration Setting | Value |
-|----------------------|-------|
-| Instance type | t2.micro |
-
-**Step 4: Key pair**
+## Step 3: Instance Type
 
 | Configuration Setting | Value |
-|----------------------|-------|
-| Key pair name | vockey |
+|---|---|
+| Instance Type | t2.micro |
 
-**Step 5: Network settings**
+---
+
+## Step 4: Key Pair
 
 | Configuration Setting | Value |
-|----------------------|-------|
+|---|---|
+| Key Pair Name | vockey |
+
+---
+
+## Step 5: Network Settings
+
+| Configuration Setting | Value |
+|---|---|
 | VPC | Lab VPC |
 | Subnet | PublicSubnet1 |
-| Auto-assign public IP | Enable |
-| Firewall (security groups) | Create new: Web Server security group |
+| Auto-assign Public IP | Enable |
+| Firewall (Security Groups) | Create new security group |
+| Security Group Name | Web Server security group |
 | Description | Security group for my web server |
 
 I removed the default inbound rule.
 
-**Step 6: Configure storage**
+---
+
+## Step 6: Configure Storage
 
 | Configuration Setting | Value |
-|----------------------|-------|
-| Root volume size | 8 GiB (default) |
+|---|---|
+| Root Volume Size | 8 GiB |
 
-**Step 7: Advanced details**
+---
+
+## Step 7: Advanced Details
 
 | Configuration Setting | Value |
-|----------------------|-------|
-| Termination protection | Enable |
+|---|---|
+| Termination Protection | Enable |
 
-I scrolled to the bottom and pasted the following script into the **User data** box:
+I pasted the following script into the **User data** section:
 
-```
+```bash
 #!/bin/bash
 dnf install -y httpd
 systemctl enable httpd
@@ -88,227 +113,371 @@ systemctl start httpd
 echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
 ```
 
-**Step 8: Launch the instance**
+---
 
-At the bottom of the Summary panel, I chose **Launch instance**.
+## Step 8: Launch the Instance
 
-I saw a Success message and chose **View all instances**.
+At the bottom of the Summary panel, I selected **Launch instance**.
 
-I selected **Web Server** and reviewed the information in the Details tab.
+After the instance launched successfully, I selected **View all instances**.
 
 I waited until the instance displayed:
 
 | Status | Value |
-|--------|-------|
+|---|---|
 | Instance State | Running |
 | Status Checks | 2/2 checks passed |
 
-![EC2 instance running with 2/2 checks passed](images/EC2-instance-running-with-2-2-checks-passed.PNG)
+![EC2 Instance Running](images/ec2-instance-running.png)
 
-### 3.2 Monitor Your Instance
+---
 
-I selected the **Web Server** instance and explored the monitoring features.
+# Task 2: Monitor the EC2 Instance
 
-**Status Checks tab:**
+I selected the `Web Server` instance and explored its monitoring features.
 
-I chose the **Status checks** tab and noticed that both checks passed:
+---
+
+## Status Checks
+
+I selected the **Status checks** tab and verified that both checks passed.
 
 | Check | Status |
-|-------|--------|
-| System reachability | Passed |
-| Instance reachability | Passed |
+|---|---|
+| System Reachability | Passed |
+| Instance Reachability | Passed |
 
-![Status checks tab showing both checks passed](images/Status-checks-tab-showing-both-checks-passed.PNG)
+![Status Checks](images/status-checks.png)
 
-**Monitoring tab:**
+---
 
-I chose the **Monitoring** tab to view Amazon CloudWatch metrics for my instance.
+## Monitoring Tab
 
-![Monitoring tab showing CloudWatch metrics](images/Monitoring-tab-showing-CloudWatch-metrics.PNG)
+I selected the **Monitoring** tab to view Amazon CloudWatch metrics for the EC2 instance.
 
-**Get system log:**
+![CloudWatch Metrics](images/cloudwatch-metrics.png)
 
-From the **Actions** menu, I selected **Monitor and troubleshoot** → **Get system log**.
+---
 
-I scrolled through the output and noted that the HTTP package was installed from the user data.
+## Get System Log
 
-![System Log showing HTTP installation](images/System-Log-showing-HTTP-installation.PNG)
+From the **Actions** menu, I selected:
 
-I clicked **Cancel**.
+```text
+Monitor and troubleshoot → Get system log
+```
 
-**Get instance screenshot:**
+I reviewed the console output and confirmed that the Apache HTTP package was installed from the user data script.
 
-From the **Actions** menu, I selected **Monitor and troubleshoot** → **Get instance screenshot**.
+![System Log](images/system-log.png)
 
-![instance screenshot](images/instance-screenshot.PNG)
+---
 
-I clicked **Cancel**.
+## Get Instance Screenshot
 
-### 3.3 Update Security Group and Access the Web Server
+From the **Actions** menu, I selected:
 
-**Test web server access (before fixing security group):**
+```text
+Monitor and troubleshoot → Get instance screenshot
+```
 
-I selected **Web Server** and copied the **Public IPv4 address** from the Details tab.
+![Instance Screenshot](images/instance-screenshot.png)
 
-I opened a new browser tab, pasted the IP address, and pressed Enter.
+---
 
-**Result:** I was not able to access the web server because the security group was not permitting inbound traffic on port 80.
+# Task 3: Update the Security Group and Access the Web Server
 
-![browser showing unable to access web server](images/browser-showing-unable-to-access-web-server.PNG)
+---
 
-**Update security group:**
+## Test Web Server Access Before Updating Security Group
 
-In the left navigation pane, I chose **Security Groups**.
+I copied the **Public IPv4 address** from the instance details page and opened it in a web browser.
 
-I selected **Web Server security group**.
+### Result
 
-I chose the **Inbound rules** tab. The security group had no inbound rules.
+The web server was not accessible because the security group did not allow inbound HTTP traffic on port 80.
 
-I chose **Edit inbound rules**, then **Add rule** and configured:
+![Web Server Inaccessible](images/web-server-inaccessible.png)
+
+---
+
+## Update the Security Group
+
+In the left navigation pane, I selected:
+
+```text
+Security Groups
+```
+
+I selected `Web Server security group` and edited the inbound rules.
+
+I added the following rule:
 
 | Type | Source |
-|------|--------|
+|---|---|
 | HTTP | Anywhere-IPv4 (0.0.0.0/0) |
 
-I chose **Save rules**.
+I saved the rule changes.
 
-![Security Group inbound rules showing HTTP from 0.0.0.0/0](images/Security-Group-inbound-rules-showing-HTTP-from-0.0.0.0-0.PNG)
+![Security Group Rule](images/security-group-rule.png)
 
-**Test web server access (after fixing security group):**
+---
 
-I returned to the web browser tab and refreshed the page.
+## Test Web Server Access After Updating Security Group
 
-**Result:** I saw the message "Hello From Your Web Server!"
+I refreshed the browser page.
 
-![browser showing Hello From Your Web Server message](images/browser-showing-Hello-From-Your-Web-Server-message.PNG)
+### Result
 
-### 3.4 Resize Your Instance
+The web server displayed the following message:
 
-**Stop the instance:**
+```text
+Hello From Your Web Server!
+```
 
-In the left navigation pane, I chose **Instances** and selected **Web Server**.
+![Web Server Accessible](images/web-server-accessible.png)
 
-From the **Instance state** menu, I selected **Stop instance**, then chose **Stop**.
+---
 
-I waited until the Instance state displayed **Stopped**.
+# Task 4: Resize the EC2 Instance
 
-![instance showing Stopped state](images/instance-showing-Stopped-state.PNG)
+---
 
-**Change the instance type and enable stop protection:**
+## Stop the Instance
 
-I selected **Web Server**, then from the **Actions** menu selected **Instance settings** → **Change instance type** and configured:
+From the **Instance state** menu, I selected:
+
+```text
+Stop instance
+```
+
+I waited until the instance state changed to:
+
+```text
+Stopped
+```
+
+![Instance Stopped](images/instance-stopped.png)
+
+---
+
+## Change the Instance Type
+
+From the **Actions** menu, I selected:
+
+```text
+Instance settings → Change instance type
+```
+
+I changed the instance type to:
 
 | Configuration Setting | Value |
-|----------------------|-------|
+|---|---|
 | Instance Type | t2.small |
 
-I chose **Apply**.
+I selected **Apply**.
 
-I selected **Web Server**, then from the **Actions** menu selected **Instance settings** → **Change stop protection**. I selected **Enable** and saved the change.
+---
 
-![Change instance type configuration showing t2.small](images/Change-instance-type-configuration-showing-t2.small.PNG)
+## Enable Stop Protection
 
-**Resize the EBS Volume:**
+From the **Actions** menu, I selected:
 
-With **Web Server** still selected, I chose the **Storage** tab, selected the Volume ID, and checked the checkbox next to the volume.
+```text
+Instance settings → Change stop protection
+```
 
-From the **Actions** menu, I selected **Modify volume** and changed:
+I enabled stop protection and saved the configuration.
+
+![Change Instance Type](images/change-instance-type.png)
+
+---
+
+## Resize the EBS Volume
+
+From the **Storage** tab, I selected the attached volume.
+
+From the **Actions** menu, I selected:
+
+```text
+Modify volume
+```
+
+I changed the volume size to:
 
 | Configuration Setting | Value |
-|----------------------|-------|
+|---|---|
 | Size | 10 GiB |
 
-I chose **Modify**, then **Modify** again to confirm.
+I confirmed the modification.
 
-![Modify volume showing size changed to 10 GiB](images/Modify-volume-showing-size-changed-to-10-GiB.PNG)
+![Modify Volume](images/modify-volume.png)
 
-**Start the resized instance:**
+---
 
-From the **Instance state** menu, I selected **Start instance**.
+## Start the Resized Instance
 
-![instance showing Running state after resizing](images/instance-showing-Running-state-after-resizing.PNG)
+From the **Instance state** menu, I selected:
 
-### 3.5 Explore EC2 Limits
+```text
+Start instance
+```
 
-In the AWS Management Console, I searched for and chose **Service Quotas**.
+![Instance Running After Resize](images/instance-running-after-resize.png)
 
-I chose **AWS services** from the navigation menu and searched for `ec2`, then selected **Amazon Elastic Compute Cloud (Amazon EC2)**.
+---
 
-In the **Find quotas** search bar, I searched for `running on-demand` and observed the filtered list of service quotas.
+# Task 5: Explore EC2 Service Quotas
 
-![EC2 service quotas showing running on-demand limits](images/EC2-service-quotas-showing-running-on-demand-limits.PNG)
+In the AWS Management Console, I searched for and opened:
 
-### 3.6 Test Stop Protection
+```text
+Service Quotas
+```
 
-I returned to the EC2 console and selected **Web Server**.
+I selected:
 
-From the **Instance state** menu, I selected **Stop instance**, then chose **Stop**.
+```text
+AWS services → Amazon Elastic Compute Cloud (Amazon EC2)
+```
 
-**Result:** I saw a message: "Failed to stop the instance... The instance may not be stopped." This showed that stop protection was working.
+In the **Find quotas** search bar, I searched for:
 
-![stop protection error message](images/stop-protection-error-message.PNG)
+```text
+running on-demand
+```
 
-**Disable stop protection:**
+I reviewed the available EC2 service quotas.
 
-From the **Actions** menu, I selected **Instance settings** → **Change stop protection**.
+![EC2 Service Quotas](images/ec2-service-quotas.png)
 
-I removed the check next to **Enable** and chose **Save**.
+---
 
-**Stop the instance:**
+# Task 6: Test Stop Protection
 
-I selected **Web Server** again and from the **Instance state** menu selected **Stop instance**, then chose **Stop**.
+I returned to the EC2 console and selected the `Web Server` instance.
 
-![instance showing Stopped state after disabling stop protection](images/instance-showing-Stopped-state-after-disabling-stop-protection.PNG)
+From the **Instance state** menu, I selected:
 
-## 4. Complete Architecture
+```text
+Stop instance
+```
 
-![complete architecture diagram](images/complete-architecture-diagram.PNG)
+### Result
+
+AWS displayed an error message indicating that the instance could not be stopped because stop protection was enabled.
+
+![Stop Protection Error](images/stop-protection-error.png)
+
+---
+
+## Disable Stop Protection
+
+From the **Actions** menu, I selected:
+
+```text
+Instance settings → Change stop protection
+```
+
+I disabled stop protection and saved the configuration.
+
+---
+
+## Stop the Instance
+
+I selected:
+
+```text
+Instance state → Stop instance
+```
+
+The instance stopped successfully.
+
+![Instance Stopped Successfully](images/instance-stopped-successfully.png)
+
+---
+
+# Complete Architecture
+
+![Complete Architecture](images/complete-architecture-diagram.png)
 
 | Component | Configuration |
-|-----------|--------------|
+|---|---|
 | EC2 Instance Name | Web Server |
 | AMI | Amazon Linux 2023 |
-| Instance Type | t2.micro (resized to t2.small) |
+| Instance Type | t2.micro → t2.small |
 | Key Pair | vockey |
 | VPC | Lab VPC |
 | Subnet | PublicSubnet1 |
-| Security Group | Web Server security group (HTTP from 0.0.0.0/0) |
-| Root Volume | 8 GiB (resized to 10 GiB) |
+| Security Group | HTTP from 0.0.0.0/0 |
+| Root Volume | 8 GiB → 10 GiB |
 | Termination Protection | Enabled |
 | Stop Protection | Enabled then disabled |
-| User Data | Installed Apache and created web page |
+| User Data | Apache installation and web page creation |
 
-## 5. Lessons Learned
+---
 
-| Concept | What I Learned |
-|---------|----------------|
-| Amazon EC2 | A web service that provides resizable compute capacity in the cloud |
-| AMI | Amazon Machine Image provides the template for the root volume of an instance |
-| Instance Type | Defines CPU, memory, storage, and networking capacity (t2.micro = 1 vCPU, 1 GiB RAM) |
-| Key Pair | Used for public-key cryptography to encrypt and decrypt login information |
-| Security Group | Acts as a virtual firewall controlling traffic to instances |
-| User Data | Scripts that run automatically on first boot with root permissions |
-| Termination Protection | Prevents accidental termination of an EC2 instance |
-| Stop Protection | Prevents accidental stopping of an EC2 instance |
-| Status Checks | Amazon EC2 performs automated checks to identify hardware and software issues |
-| CloudWatch Metrics | Amazon EC2 sends metrics to CloudWatch for monitoring |
-| System Log | Console output of the instance for problem diagnosis |
-| Instance Screenshot | Captures what the instance console would look like |
-| Service Quotas | Default limits on resources per region (e.g., running On-Demand instances) |
-| EBS Volume | Can be modified to increase size while stopped |
+# Lessons Learned
 
-## 6. References
+| Concept | Description |
+|---|---|
+| Amazon EC2 | Provides scalable compute capacity in the cloud |
+| AMI | Template used to launch EC2 instances |
+| Instance Type | Defines CPU, RAM, storage, and networking capacity |
+| Key Pair | Used for secure authentication |
+| Security Group | Virtual firewall controlling inbound and outbound traffic |
+| User Data | Script automatically executed during first boot |
+| Termination Protection | Prevents accidental instance termination |
+| Stop Protection | Prevents accidental instance shutdown |
+| Status Checks | Automated health checks for EC2 instances |
+| CloudWatch Metrics | Monitoring metrics collected from EC2 instances |
+| System Log | Console output useful for troubleshooting |
+| Instance Screenshot | Captures the EC2 console display |
+| Service Quotas | AWS resource usage limits per region |
+| EBS Volume | Persistent block storage attached to EC2 instances |
 
-- [Launch Your Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/LaunchingAndUsingInstances.html)
-- [Amazon EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/)
-- [Amazon Machine Images (AMI)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)
-- [User Data and Shell Scripts](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html)
-- [Security Groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)
-- [Status Checks for Your Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-system-instance-status-check.html)
-- [Resizing Your Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html)
-- [Stop and Start Your Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html)
-- [Amazon EC2 Service Limits](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html)
-- [Termination Protection for an Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#termination-protection)
+---
+
+# Repository Structure
+
+```text
+.
+├── README.md
+└── images/
+    ├── architecture-diagram.png
+    ├── ec2-instance-running.png
+    ├── status-checks.png
+    ├── cloudwatch-metrics.png
+    ├── system-log.png
+    ├── instance-screenshot.png
+    ├── web-server-inaccessible.png
+    ├── security-group-rule.png
+    ├── web-server-accessible.png
+    ├── instance-stopped.png
+    ├── change-instance-type.png
+    ├── modify-volume.png
+    ├── instance-running-after-resize.png
+    ├── ec2-service-quotas.png
+    ├── stop-protection-error.png
+    ├── instance-stopped-successfully.png
+    └── complete-architecture-diagram.png
+```
+
+---
+
+# References
+
+- [Amazon EC2 Documentation](https://docs.aws.amazon.com/ec2/?utm_source=chatgpt.com)
+- [Launch an EC2 Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/LaunchingAndUsingInstances.html?utm_source=chatgpt.com)
+- [Amazon EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/?utm_source=chatgpt.com)
+- [Amazon Machine Images (AMI)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html?utm_source=chatgpt.com)
+- [EC2 User Data Scripts](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html?utm_source=chatgpt.com)
+- [Security Groups for EC2 Instances](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html?utm_source=chatgpt.com)
+- [EC2 Status Checks](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-system-instance-status-check.html?utm_source=chatgpt.com)
+- [Resize an EC2 Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-resize.html?utm_source=chatgpt.com)
+- [Start and Stop EC2 Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html?utm_source=chatgpt.com)
+- [Amazon EC2 Service Quotas](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html?utm_source=chatgpt.com)
+- [Termination Protection](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html?utm_source=chatgpt.com#termination-protection)
 
 ---
 
