@@ -53,7 +53,7 @@ In this task, a new EBS volume was created and prepared for attachment to the EC
   - Value: My Volume
 6. Created the volume.
 ---
-Result
+Result:
 
 The volume was successfully created and its state changed from Creating to Available.
 
@@ -72,11 +72,11 @@ The newly created volume was attached to the running EC2 instance.
 
 Selected device name:
 
-/dev/sdb
+```/dev/sdb```
 
 5. Attached the volume.
 ---
-Result
+Result:
 
 The volume state changed to In-use, confirming successful attachment.
 
@@ -94,7 +94,7 @@ The EC2 instance was accessed using AWS Systems Manager Session Manager.
 3. Chose Connect → Session Manager → Connect.
 4. Switched to the ec2-user account.
 ---
-Command Used
+Command Used:
 ```
 sudo su -l ec2-user
 ```
@@ -107,7 +107,7 @@ sudo su -l ec2-user
 The attached EBS volume was formatted and mounted to the Linux instance.
 
 #### Step 1: Verify Existing Storage
-Command
+Command:
 ``` 
 df -h
 ```
@@ -118,7 +118,7 @@ Displays currently mounted file systems and available storage.
 [📸 Screenshot Placeholder: Output of df -h before mounting the new volume.]
 
 #### Step 2: Create an EXT3 File System
-Command
+Command:
 ``` 
 sudo mkfs -t ext3 /dev/sdb
 ```
@@ -129,7 +129,7 @@ Formats the attached EBS volume with the EXT3 file system.
 [📸 Screenshot Placeholder: Terminal output of the mkfs command.]
 
 #### Step 3: Create Mount Directory
-Command
+Command:
 ``` 
 sudo mkdir /mnt/data-store
 ```
@@ -138,7 +138,7 @@ sudo mkdir /mnt/data-store
 Creates a directory to mount the EBS volume.
 
 #### Step 4: Mount the Volume
-Command
+Command:
 ``` 
 sudo mount /dev/sdb /mnt/data-store
 ```
@@ -147,7 +147,7 @@ sudo mount /dev/sdb /mnt/data-store
 Mounts the EBS volume to the Linux file system.
 
 #### Step 5: Configure Automatic Mounting
-Command
+Command:
 ``` 
 echo "/dev/sdb   /mnt/data-store ext3 defaults,noatime 1 2" | sudo tee -a /etc/fstab
 ```
@@ -156,7 +156,7 @@ echo "/dev/sdb   /mnt/data-store ext3 defaults,noatime 1 2" | sudo tee -a /etc/f
 Ensures the volume is automatically mounted after system reboot.
 
 #### Step 6: Verify Configuration
-Command
+Command:
 ``` 
 cat /etc/fstab
 ```
@@ -164,115 +164,114 @@ cat /etc/fstab
 [📸 Screenshot Placeholder: /etc/fstab configuration showing the added mount entry.]
 
 #### Step 7: Verify Mounted Storage
-Command
+Command:
 ``` 
 df -h
 ```
-Result
+Result:
 
 The new mounted volume appeared as:
 
-/dev/xvdb
+```/dev/xvdb```
 
 [📸 Screenshot Placeholder:Output of df -h showing /mnt/data-store.]
 
-Step 8: Create a File on the Mounted Volume
-Command
+#### Step 8: Create a File on the Mounted Volume
+Command:
 ```
 sudo sh -c "echo some text has been written > /mnt/data-store/file.txt"
 ```
-Purpose
+Purpose:
 
 Creates a test file on the EBS volume.
 
-Step 9: Verify the File
-Command
+#### Step 9: Verify the File
+Command:
 ```
 cat /mnt/data-store/file.txt
 ```
-Result
+Result:
 some text has been written
 
 [📸 Screenshot Placeholder:Terminal output showing the file content.]
 
-Task 5: Create an Amazon EBS Snapshot
+### Task 5: Create an Amazon EBS Snapshot
 
 An EBS snapshot was created to back up the data stored on the volume.
 
-Steps Performed
-Opened EC2 → Volumes.
-Selected My Volume.
-Chose Actions → Create Snapshot.
-Added the tag:
-Key: Name
-Value: My Snapshot
-Created the snapshot.
-Result
+##### Steps Performed
+1. Opened EC2 → Volumes.
+2. Selected My Volume.
+3. Chose Actions → Create Snapshot.
+4. Added the tag:
+  - Key: ```Name```
+  - Value: ```My Snapshot```
+5. Created the snapshot.
+Result:
 
 The snapshot status changed from Pending to Completed.
 
 [📸 Screenshot Placeholder:Snapshots page showing My Snapshot.]
 
 Delete the Original File
-Command
+Command:
 ```
 sudo rm /mnt/data-store/file.txt
 #Verify Deletion
 ls /mnt/data-store/
 ```
-Result
+Result:
 
 The directory became empty.
 
 [📸 Screenshot Placeholder: Terminal output showing that file.txt no longer exists.]
 
-Task 6: Restore the Amazon EBS Snapshot
+### Task 6: Restore the Amazon EBS Snapshot
 
 The snapshot was restored by creating a new EBS volume from it.
 
-Create a Volume from Snapshot
-Steps Performed
-Opened EC2 → Snapshots.
-Selected My Snapshot.
-Chose Create Volume from Snapshot.
-Selected the same Availability Zone.
-Added the tag:
-Key: Name
-Value: Restored Volume
-Created the volume.
+#### Create a Volume from Snapshot
+##### Steps Performed
+1. Opened EC2 → Snapshots.
+2. Selected ```My Snapshot```.
+3. Chose Create Volume from Snapshot.
+4. Selected the same Availability Zone.
+5. Added the tag:
+   - Key: ```Name```
+  - Value: ```Restored Volume```
+6. Created the volume.
 
 [📸 Screenshot Placeholder:Create Volume from Snapshot page.]
 
-Attach the Restored Volume
-Steps Performed
-Opened EC2 → Volumes.
-Selected Restored Volume.
-Chose Attach Volume.
-Selected the Lab instance.
-Selected device name:
-/dev/sdc
-Attached the volume.
+### Attach the Restored Volume
+#### Steps Performed
+1. Opened EC2 → Volumes.
+2. Selected ```Restored Volume```.
+3. Chose Attach Volume.
+4. Selected the ```Lab``` instance.
+5. Selected device name:
+```/dev/sdc```
+6. Attached the volume.
 
-📸 Screenshot Placeholder:
-Restored Volume attached to the EC2 instance.
+[📸 Screenshot Placeholder: Restored Volume attached to the EC2 instance.]
 
-Mount the Restored Volume
-Step 1: Create Mount Directory
-Command
+### Mount the Restored Volume
+#### Step 1: Create Mount Directory
+Command:
 ```
 sudo mkdir /mnt/data-store2
 ```
-Step 2: Mount the Restored Volume
-Command
+#### Step 2: Mount the Restored Volume
+Command:
 ```
 sudo mount /dev/sdc /mnt/data-store2
 ```
-Step 3: Verify Restored Data
-Command
+#### Step 3: Verify Restored Data
+Command:
 ```
 ls /mnt/data-store2/
 ```
-Result
+Result:
 file.txt
 
 This confirms that the snapshot successfully preserved and restored the data.
