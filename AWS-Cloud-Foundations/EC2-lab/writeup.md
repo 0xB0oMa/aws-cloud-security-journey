@@ -20,7 +20,7 @@ After completing this lab, I was able to:
 
 ## Architecture Diagram
 
-![Architecture Diagram](images/architecture-diagram.png)
+![architecture diagram](images/Architecture-diagram.PNG)
 
 ---
 
@@ -128,7 +128,7 @@ I waited until the instance displayed:
 | Instance State | Running |
 | Status Checks | 2/2 checks passed |
 
-![EC2 Instance Running](images/ec2-instance-running.png)
+![EC2 instance running with 2/2 checks passed](images/EC2-instance-running-with-2-2-checks-passed.PNG)
 
 ---
 
@@ -147,7 +147,7 @@ I selected the **Status checks** tab and verified that both checks passed.
 | System Reachability | Passed |
 | Instance Reachability | Passed |
 
-![Status Checks](images/status-checks.png)
+![Status checks tab showing both checks passed](images/Status-checks-tab-showing-both-checks-passed.PNG)
 
 ---
 
@@ -155,7 +155,7 @@ I selected the **Status checks** tab and verified that both checks passed.
 
 I selected the **Monitoring** tab to view Amazon CloudWatch metrics for the EC2 instance.
 
-![CloudWatch Metrics](images/cloudwatch-metrics.png)
+![Monitoring tab showing CloudWatch metrics](images/Monitoring-tab-showing-CloudWatch-metrics.PNG)
 
 ---
 
@@ -169,7 +169,7 @@ Monitor and troubleshoot → Get system log
 
 I reviewed the console output and confirmed that the Apache HTTP package was installed from the user data script.
 
-![System Log](images/system-log.png)
+![System Log showing HTTP installation](images/System-Log-showing-HTTP-installation.PNG)
 
 ---
 
@@ -181,7 +181,7 @@ From the **Actions** menu, I selected:
 Monitor and troubleshoot → Get instance screenshot
 ```
 
-![Instance Screenshot](images/instance-screenshot.png)
+![instance screenshot](images/instance-screenshot.PNG)
 
 ---
 
@@ -197,7 +197,7 @@ I copied the **Public IPv4 address** from the instance details page and opened i
 
 The web server was not accessible because the security group did not allow inbound HTTP traffic on port 80.
 
-![Web Server Inaccessible](images/web-server-inaccessible.png)
+![browser showing unable to access web server](images/browser-showing-unable-to-access-web-server.PNG)
 
 ---
 
@@ -219,7 +219,7 @@ I added the following rule:
 
 I saved the rule changes.
 
-![Security Group Rule](images/security-group-rule.png)
+![Security Group inbound rules showing HTTP from 0.0.0.0/0](images/Security-Group-inbound-rules-showing-HTTP-from-0.0.0.0-0.PNG)
 
 ---
 
@@ -235,7 +235,7 @@ The web server displayed the following message:
 Hello From Your Web Server!
 ```
 
-![Web Server Accessible](images/web-server-accessible.png)
+![browser showing Hello From Your Web Server message](images/browser-showing-Hello-From-Your-Web-Server-message.PNG)
 
 ---
 
@@ -257,7 +257,7 @@ I waited until the instance state changed to:
 Stopped
 ```
 
-![Instance Stopped](images/instance-stopped.png)
+![instance showing Stopped state](images/instance-showing-Stopped-state.PNG)
 
 ---
 
@@ -289,7 +289,7 @@ Instance settings → Change stop protection
 
 I enabled stop protection and saved the configuration.
 
-![Change Instance Type](images/change-instance-type.png)
+![Change instance type configuration showing t2.small](images/Change-instance-type-configuration-showing-t2.small.PNG)
 
 ---
 
@@ -311,7 +311,7 @@ I changed the volume size to:
 
 I confirmed the modification.
 
-![Modify Volume](images/modify-volume.png)
+![Modify volume showing size changed to 10 GiB](images/Modify-volume-showing-size-changed-to-10-GiB.PNG)
 
 ---
 
@@ -323,7 +323,7 @@ From the **Instance state** menu, I selected:
 Start instance
 ```
 
-![Instance Running After Resize](images/instance-running-after-resize.png)
+![instance showing Running state after resizing](images/instance-showing-Running-state-after-resizing.PNG)
 
 ---
 
@@ -349,7 +349,7 @@ running on-demand
 
 I reviewed the available EC2 service quotas.
 
-![EC2 Service Quotas](images/ec2-service-quotas.png)
+![EC2 service quotas showing running on-demand limits](images/EC2-service-quotas-showing-running-on-demand-limits.PNG)
 
 ---
 
@@ -367,7 +367,7 @@ Stop instance
 
 AWS displayed an error message indicating that the instance could not be stopped because stop protection was enabled.
 
-![Stop Protection Error](images/stop-protection-error.png)
+![stop protection error message](images/stop-protection-error-message.PNG)
 
 ---
 
@@ -393,13 +393,13 @@ Instance state → Stop instance
 
 The instance stopped successfully.
 
-![Instance Stopped Successfully](images/instance-stopped-successfully.png)
+![instance showing Stopped state after disabling stop protection](images/instance-showing-Stopped-state-after-disabling-stop-protection.PNG)
 
 ---
 
 # Complete Architecture
 
-![Complete Architecture](images/complete-architecture-diagram.png)
+![complete architecture diagram](images/complete-architecture-diagram.PNG)
 
 | Component | Configuration |
 |---|---|
@@ -444,23 +444,23 @@ The instance stopped successfully.
 .
 ├── README.md
 └── images/
-    ├── architecture-diagram.png
-    ├── ec2-instance-running.png
-    ├── status-checks.png
-    ├── cloudwatch-metrics.png
-    ├── system-log.png
-    ├── instance-screenshot.png
-    ├── web-server-inaccessible.png
-    ├── security-group-rule.png
-    ├── web-server-accessible.png
-    ├── instance-stopped.png
-    ├── change-instance-type.png
-    ├── modify-volume.png
-    ├── instance-running-after-resize.png
-    ├── ec2-service-quotas.png
-    ├── stop-protection-error.png
-    ├── instance-stopped-successfully.png
-    └── complete-architecture-diagram.png
+    ├── Architecture-diagram.PNG
+    ├── EC2-instance-running-with-2-2-checks-passed.PNG
+    ├── Status-checks-tab-showing-both-checks-passed.PNG
+    ├── Monitoring-tab-showing-CloudWatch-metrics.PNG
+    ├── System-Log-showing-HTTP-installation.PNG
+    ├── instance-screenshot.PNG
+    ├── browser-showing-unable-to-access-web-server.PNG
+    ├── Security-Group-inbound-rules-showing-HTTP-from-0.0.0.0-0.PNG
+    ├── browser-showing-Hello-From-Your-Web-Server-message.PNG
+    ├── instance-showing-Stopped-state.PNG
+    ├── Change-instance-type-configuration-showing-t2.small.PNG
+    ├── Modify-volume-showing-size-changed-to-10-GiB.PNG
+    ├── instance-showing-Running-state-after-resizing.PNG
+    ├── EC2-service-quotas-showing-running-on-demand-limits.PNG
+    ├── stop-protection-error-message.PNG
+    ├── instance-showing-Stopped-state-after-disabling-stop-protection.PNG
+    └── complete-architecture-diagram.PNG
 ```
 
 ---
