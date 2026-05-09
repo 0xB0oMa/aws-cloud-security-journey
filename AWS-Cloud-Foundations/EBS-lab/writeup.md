@@ -108,7 +108,9 @@ The attached EBS volume was formatted and mounted to the Linux instance.
 
 #### Step 1: Verify Existing Storage
 Command
-``` df -h ```
+``` 
+df -h
+```
 ##### Purpose
 
 Displays currently mounted file systems and available storage.
@@ -117,7 +119,9 @@ Displays currently mounted file systems and available storage.
 
 #### Step 2: Create an EXT3 File System
 Command
-``` sudo mkfs -t ext3 /dev/sdb ```
+``` 
+sudo mkfs -t ext3 /dev/sdb
+```
 ##### Purpose
 
 Formats the attached EBS volume with the EXT3 file system.
@@ -126,58 +130,70 @@ Formats the attached EBS volume with the EXT3 file system.
 
 #### Step 3: Create Mount Directory
 Command
-``` sudo mkdir /mnt/data-store ```
+``` 
+sudo mkdir /mnt/data-store
+```
 ##### Purpose
 
 Creates a directory to mount the EBS volume.
 
 #### Step 4: Mount the Volume
 Command
-``` sudo mount /dev/sdb /mnt/data-store ```
+``` 
+sudo mount /dev/sdb /mnt/data-store
+```
 ##### Purpose
 
 Mounts the EBS volume to the Linux file system.
 
 #### Step 5: Configure Automatic Mounting
 Command
-``` echo "/dev/sdb   /mnt/data-store ext3 defaults,noatime 1 2" | sudo tee -a /etc/fstab ```
+``` 
+echo "/dev/sdb   /mnt/data-store ext3 defaults,noatime 1 2" | sudo tee -a /etc/fstab
+```
 ##### Purpose
 
 Ensures the volume is automatically mounted after system reboot.
 
 #### Step 6: Verify Configuration
 Command
-``` cat /etc/fstab ```
+``` 
+cat /etc/fstab
+```
 
 [📸 Screenshot Placeholder: /etc/fstab configuration showing the added mount entry.]
 
 #### Step 7: Verify Mounted Storage
 Command
-``` df -h ```
+``` 
+df -h
+```
 Result
 
 The new mounted volume appeared as:
 
 /dev/xvdb
 
-📸 Screenshot Placeholder:
-Output of df -h showing /mnt/data-store.
+[📸 Screenshot Placeholder:Output of df -h showing /mnt/data-store.]
 
 Step 8: Create a File on the Mounted Volume
 Command
+```
 sudo sh -c "echo some text has been written > /mnt/data-store/file.txt"
+```
 Purpose
 
 Creates a test file on the EBS volume.
 
 Step 9: Verify the File
 Command
+```
 cat /mnt/data-store/file.txt
+```
 Result
 some text has been written
 
-📸 Screenshot Placeholder:
-Terminal output showing the file content.
+[📸 Screenshot Placeholder:Terminal output showing the file content.]
 
 Task 5: Create an Amazon EBS Snapshot
 
@@ -195,20 +211,20 @@ Result
 
 The snapshot status changed from Pending to Completed.
 
-📸 Screenshot Placeholder:
-Snapshots page showing My Snapshot.
+[📸 Screenshot Placeholder:Snapshots page showing My Snapshot.]
 
 Delete the Original File
 Command
+```
 sudo rm /mnt/data-store/file.txt
-Verify Deletion
+#Verify Deletion
 ls /mnt/data-store/
+```
 Result
 
 The directory became empty.
 
-📸 Screenshot Placeholder:
-Terminal output showing that file.txt no longer exists.
+[📸 Screenshot Placeholder: Terminal output showing that file.txt no longer exists.]
 
 Task 6: Restore the Amazon EBS Snapshot
 
@@ -225,8 +241,7 @@ Key: Name
 Value: Restored Volume
 Created the volume.
 
-📸 Screenshot Placeholder:
-Create Volume from Snapshot page.
+[📸 Screenshot Placeholder:Create Volume from Snapshot page.]
 
 Attach the Restored Volume
 Steps Performed
@@ -244,22 +259,27 @@ Restored Volume attached to the EC2 instance.
 Mount the Restored Volume
 Step 1: Create Mount Directory
 Command
+```
 sudo mkdir /mnt/data-store2
+```
 Step 2: Mount the Restored Volume
 Command
+```
 sudo mount /dev/sdc /mnt/data-store2
+```
 Step 3: Verify Restored Data
 Command
+```
 ls /mnt/data-store2/
+```
 Result
 file.txt
 
 This confirms that the snapshot successfully preserved and restored the data.
 
-📸 Screenshot Placeholder:
-Terminal output showing file.txt inside /mnt/data-store2.
+[📸 Screenshot Placeholder:Terminal output showing file.txt inside /mnt/data-store2.]
 
-Conclusion
+### Conclusion
 
 In this lab, Amazon EBS storage management was successfully implemented using AWS EC2. The following tasks were completed:
 
