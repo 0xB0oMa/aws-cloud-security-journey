@@ -14,3 +14,6 @@ This lab focuses on using Amazon Elastic Block Store (Amazon EBS) with Amazon EC
 
 ---
 
+### Architecture Diagram
+
+[📸 Screenshot Placeholder: Insert the provided AWS architecture diagram here.]
