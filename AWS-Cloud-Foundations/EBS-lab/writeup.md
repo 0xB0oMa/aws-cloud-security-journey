@@ -95,8 +95,9 @@ The EC2 instance was accessed using AWS Systems Manager Session Manager.
 4. Switched to the ec2-user account.
 ---
 Command Used
+```
 sudo su -l ec2-user
-
+```
 [📸 Screenshot Placeholder: Session Manager terminal connected to the EC2 instance.]
 
 ---
