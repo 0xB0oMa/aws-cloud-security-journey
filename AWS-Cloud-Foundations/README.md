@@ -34,10 +34,10 @@ This section documents my learning journey through AWS Cloud Foundations, coveri
 
 * 🔐 [IAM Introduction Lab](IAM-Introduction-Lab//writeup.md)
 * 🌐 [VPC Web Server Lab](VPC-web-server-lab/writeup.md)
-* 🖥️ EC2 Lab
-* 📦 EBS Lab
-* 🗄️ RDS Lab
-* ⚖️ Auto Scaling & Load Balancing Lab
+* 🖥️ [EC2 Lab](EC2-lab/writeup.md)
+* 📦 [EBS Lab](EBS-lab/writeup.md)
+* 🗄️ [RDS Lab](RDS-lab/writeup.md)
+* ⚖️ [Auto Scaling & Load Balancing Lab](Auto-scaling-&-load-balancing-lab/writeup.md)
 
 ---
 
@@ -60,4 +60,4 @@ This section builds the foundation required to move into **AWS Security Foundati
 
 ## 📌 Status
 
-🟡 In Progress – continuously updated as I complete more modules and labs.
+🔵 Finished – all modules and labs completed.
