@@ -298,14 +298,6 @@ I selected:
 Submit
 ```
 
-### Result
-
-The application connected successfully to the Amazon RDS database.
-
-![RDS connection configuration](images/RDS-connection-configuration.PNG)
-
----
-
 ## Test the Address Book Application
 
 The Address Book application opened successfully.
