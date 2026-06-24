@@ -66,7 +66,7 @@ Steps performed:
 - Navigated to **Services > Storage > S3**.
 - All three buckets (`bucket1`, `bucket2`, `bucket3`) were listed, but the **Access** column showed **"Insufficient permissions"** for all three.
 
-> 📸 **Screenshot 8:** S3 bucket list showing "Insufficient permissions" in the Access column for all three buckets.
+> <img width="1448" height="536" alt="image" src="https://github.com/user-attachments/assets/68cb9425-922b-4936-9dc0-6f0d0fd5cc51" />
 
 ---
 
@@ -77,7 +77,7 @@ Steps performed:
 - Navigated to **Services > Security, Identity, & Compliance > IAM**.
 - The IAM dashboard displayed an error: *"User: arn:aws:iam:::user/devuser is not authorized to perform: iam:GetAccountSummary on resource: \*"*
 
-> 📸 **Screenshot 9:** IAM dashboard showing the GetAccountSummary authorization error.
+> <img width="948" height="569" alt="image" src="https://github.com/user-attachments/assets/8ad66c05-959c-4bc3-9ca0-2dc1535581cc" />
 
 ### 5.2 Group Membership
 
@@ -85,9 +85,9 @@ Steps performed:
 - Confirmed `devuser` is a member (Users tab).
 - Opened the **Permissions** tab and found the attached policy: **DeveloperGroupPolicy**.
 
-> 📸 **Screenshot 10:** DeveloperGroup "Users" tab showing `devuser` as a member.
+> <img width="1411" height="645" alt="image" src="https://github.com/user-attachments/assets/811b1df8-bbcd-4f50-9908-32242716090b" />
 
-> 📸 **Screenshot 11:** DeveloperGroup "Permissions" tab showing `DeveloperGroupPolicy` attached.
+> <img width="1412" height="624" alt="image" src="https://github.com/user-attachments/assets/9fd24f0e-cf02-4b12-8526-2b443b9115f9" />
 
 ### 5.3 Reviewing the Policy JSON
 
