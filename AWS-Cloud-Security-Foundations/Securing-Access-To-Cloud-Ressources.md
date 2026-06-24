@@ -38,9 +38,9 @@ Steps performed:
 2. Retrieved the `IAMUserLoginURL` and `IAMUserPassword` from the **AWS Details** panel.
 3. Logged in as IAM user `devuser`.
 
-> 📸 **Screenshot 3:** AWS Details panel showing the IAM login URL (you can redact the password).
+> <img width="523" height="814" alt="image" src="https://github.com/user-attachments/assets/79edd810-3a3d-49db-af3c-9d0fd47e7ae1" />
 
-> 📸 **Screenshot 4:** Successful sign-in to the AWS Management Console as `devuser` (top-right corner showing the username).
+> <img width="591" height="395" alt="image" src="https://github.com/user-attachments/assets/2b88d983-2ad0-4a25-a756-19280c926426" />
 
 ---
 
