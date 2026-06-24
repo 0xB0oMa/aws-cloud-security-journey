@@ -98,7 +98,7 @@ Key findings:
 - **Several read-level IAM actions** are allowed (which is why policy details could be viewed), but `iam:GetAccountSummary` is **not** included.
 - For **S3**, only certain **bucket-level** actions are allowed — **no object-level actions** are granted.
 
-> 📸 **Screenshot 12:** Expanded JSON view of `DeveloperGroupPolicy`.
+> <img width="961" height="719" alt="image" src="https://github.com/user-attachments/assets/f4d2cddf-d32c-45a5-8434-4409769615af" />
 
 **Action taken:** Copied the policy JSON and saved it locally as `DeveloperGroupPolicy.json` for later reference.
 
@@ -111,7 +111,7 @@ Key findings:
 - Created a new bucket using a unique name (initials + random 4-digit number), Region: **US East (N. Virginia) us-east-1**.
 - Bucket creation **succeeded**.
 
-> 📸 **Screenshot 13:** Successful bucket creation confirmation / new bucket appearing in the bucket list.
+> <img width="1843" height="70" alt="image" src="https://github.com/user-attachments/assets/fa4cd73c-e04d-49bc-85e7-8c5f83904a2f" />
 
 ### 6.2 Upload an Object (Failed)
 
@@ -119,9 +119,9 @@ Key findings:
 - Upload **failed** with an **Access Denied** error.
 - Message: *"You don't have permissions to upload files and folders."*
 
-> 📸 **Screenshot 14:** "Upload failed" message with the Access Denied error link.
+> <img width="1841" height="98" alt="image" src="https://github.com/user-attachments/assets/26181b80-478a-473e-830f-ed1a1f0e3dfb" />
 
-> 📸 **Screenshot 15:** Detailed Access Denied message after clicking the error link.
+> <img width="1116" height="507" alt="image" src="https://github.com/user-attachments/assets/8b7de6df-8b51-4715-80d8-95cb11d929e5" />
 
 **Analysis:** `DeveloperGroupPolicy` grants `s3:CreateBucket` (bucket-level action) but does **not** grant `s3:PutObject` (object-level action) — this is consistent with what was observed in the policy JSON in Task 3.
 
@@ -134,7 +134,7 @@ Key findings:
 - Tried to download `Image2.jpg` from `bucket1` → **AccessDenied** error.
 - Tried to download `Image1.jpg` from `bucket2` → same **AccessDenied** error.
 
-> 📸 **Screenshot 16:** AccessDenied error page when attempting to download from bucket1.
+> <img width="1920" height="231" alt="image" src="https://github.com/user-attachments/assets/1f4fc847-f7c7-47d7-abc3-71234872e518" />
 
 > 📸 **Screenshot 17:** AccessDenied error page when attempting to download from bucket2.
 
