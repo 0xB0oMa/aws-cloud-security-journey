@@ -273,9 +273,3 @@ This illustrates that **effective permissions are the union of all applicable id
 - `GrantBucket1Access.json`
 
 ---
-
-## 12. Lab Completion
-
-> 📸 **Screenshot 34:** Grades panel after submitting the lab, showing points earned per task.
-
-**Final Notes / Reflections:** _[optional — add anything you found surprising, confusing, or want to remember for the exam]_
