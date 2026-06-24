@@ -136,7 +136,7 @@ Key findings:
 
 > <img width="1920" height="231" alt="image" src="https://github.com/user-attachments/assets/1f4fc847-f7c7-47d7-abc3-71234872e518" />
 
-> 📸 **Screenshot 17:** AccessDenied error page when attempting to download from bucket2.
+> <img width="1920" height="235" alt="image" src="https://github.com/user-attachments/assets/e3974187-2c28-4274-bc90-a505ff06017b" />
 
 **Analysis:** Consistent with `DeveloperGroupPolicy` — bucket-level actions are allowed, but object-level actions on `bucket1`/`bucket2` are not.
 
@@ -145,26 +145,24 @@ Key findings:
 - Used **Switch role** (top-right menu) with the Account ID from the AWS Details panel and Role name `BucketsAccessRole`.
 - Confirmed the role switch by seeing `BucketsAccessRole` displayed in the top-right corner instead of `devuser`.
 
-> 📸 **Screenshot 18:** Switch Role dialog filled in with Account ID and Role name.
-
-> 📸 **Screenshot 19:** Top-right corner showing `BucketsAccessRole` is now active.
+> <img width="573" height="354" alt="image" src="https://github.com/user-attachments/assets/9b02e5a0-01b2-4f12-949d-f2cc8aa9b4df" />
 
 ### 7.3 Re-testing S3 Access as the Role
 
 - Downloaded `Image2.jpg` from `bucket1` → **succeeded**.
 
-> 📸 **Screenshot 20:** Successful download confirmation / opened Image2.jpg file.
+> <img width="1116" height="75" alt="image" src="https://github.com/user-attachments/assets/f4aedf30-a015-4b7e-b016-602bb9a232fa" />
 
 ### 7.4 Re-testing IAM Access as the Role
 
 - Navigated to **IAM > User groups** → received a new authorization error (role lacks `iam:ListGroups`).
 
-> 📸 **Screenshot 21:** IAM error stating BucketsAccessRole is not authorized to list groups.
+> <img width="1908" height="528" alt="image" src="https://github.com/user-attachments/assets/de41f5d9-67b6-48e0-9b45-da34873c81fa" />
 
 - Used **Switch back** to return to `devuser`.
 - Confirmed access to **User groups** page was restored.
 
-> 📸 **Screenshot 22:** User groups page accessible again as `devuser` after switching back.
+> <img width="1920" height="537" alt="image" src="https://github.com/user-attachments/assets/62f84a33-55ea-4bee-932e-7fb772c855ab" />
 
 ### 7.5 Analyzing Policies Attached to `BucketsAccessRole`
 
@@ -175,9 +173,9 @@ Opened **IAM > Roles > BucketsAccessRole** and reviewed two attached policies:
 | `ListAllBucketsPolicy` | `s3:ListAllMyBuckets` on all resources (`*`) |
 | `GrantBucket1Access` | `s3:GetObject`, `s3:ListObjects`, `s3:ListBucket` — scoped only to `bucket1` and `bucket1/*` |
 
-> 📸 **Screenshot 23:** Expanded `ListAllBucketsPolicy` JSON.
+> <img width="1400" height="388" alt="image" src="https://github.com/user-attachments/assets/5a5449a3-fb3c-4f55-a244-8375e4f84248" />
 
-> 📸 **Screenshot 24:** Expanded `GrantBucket1Access` JSON.
+> <img width="1409" height="505" alt="image" src="https://github.com/user-attachments/assets/79f3dd6d-c1c3-4809-b96b-9bf4859e25ef" />
 
 **Note:** `GrantBucket1Access` does **not** include `s3:PutObject`, and its resource scope is limited strictly to `bucket1`.
 
@@ -189,7 +187,7 @@ Opened **IAM > Roles > BucketsAccessRole** and reviewed two attached policies:
 - Confirmed `devuser` is listed as a trusted entity allowed to assume this role.
 - Verified the account number in the trust policy matches the account number shown in the console (top-right corner).
 
-> 📸 **Screenshot 25:** Trust relationships tab showing `devuser` as a trusted principal.
+> <img width="1465" height="451" alt="image" src="https://github.com/user-attachments/assets/6548e50f-eb98-4ad1-be00-2a52632f1f17" />
 
 ### 7.7 Unexpected Upload Success to `bucket2`
 
@@ -197,9 +195,9 @@ Opened **IAM > Roles > BucketsAccessRole** and reviewed two attached policies:
 - Uploaded `Image2.jpg` (previously downloaded from `bucket1`) to `bucket2`.
 - Upload **succeeded** — surprising, since no role-based policy explicitly grants `s3:PutObject` on `bucket2`.
 
-> 📸 **Screenshot 26:** `bucket2` before upload (no Image2.jpg present).
+> <img width="1496" height="506" alt="image" src="https://github.com/user-attachments/assets/073adb5a-b9e9-4216-a349-0fc160f41e99" />
 
-> 📸 **Screenshot 27:** Successful upload confirmation of Image2.jpg to bucket2.
+> <img width="1846" height="623" alt="image" src="https://github.com/user-attachments/assets/db139be7-06c4-487a-a0c9-6548effda9e9" />
 
 **Question raised:** Why did this succeed if no IAM policy attached to the role grants this access? → Answered in Task 6.
 
@@ -216,7 +214,7 @@ The bucket policy contains two statements:
 | `S3Write` | `BucketsAccessRole` | `s3:GetObject`, `s3:PutObject` | bucket2 |
 | `ListBucket` | `BucketsAccessRole` | `s3:ListBucket` | bucket2 |
 
-> 📸 **Screenshot 28:** bucket2 bucket policy JSON showing the `S3Write` and `ListBucket` statements.
+> <img width="963" height="705" alt="image" src="https://github.com/user-attachments/assets/17de0de6-ecc9-4216-bc1f-be014ba44987" />
 
 ### Key Takeaway
 
@@ -228,7 +226,7 @@ This lab demonstrated how **identity-based policies** (on the role) and **resour
 
 This illustrates that **effective permissions are the union of all applicable identity-based and resource-based policies** (absent an explicit `Deny`).
 
-> 📸 **Screenshot 29 (optional):** Diagram summarizing how BucketsAccessRole accesses bucket1 via role policy and bucket2 via bucket policy.
+> <img width="856" height="368" alt="image" src="https://github.com/user-attachments/assets/c52fd330-4c6b-4f30-a321-27b6bd03cd22" />
 
 ---
 
@@ -240,9 +238,9 @@ This illustrates that **effective permissions are the union of all applicable id
 - Attempted to upload `Image2.jpg` to `bucket3` → **failed**.
 - Attempted to view `bucket3`'s bucket policy → **could not view it** (insufficient permissions).
 
-> 📸 **Screenshot 30:** Failed upload attempt to bucket3 as devuser.
+> <img width="1884" height="748" alt="image" src="https://github.com/user-attachments/assets/e1ee8f7d-2f8f-4769-b48d-fc5441911b6c" />
 
-> 📸 **Screenshot 31:** Unable to view bucket3's bucket policy as devuser.
+> <img width="1856" height="463" alt="image" src="https://github.com/user-attachments/assets/618bf7ca-6f12-4af1-bd18-623d0ae01e0c" />
 
 ### 9.2 Attempt as `BucketsAccessRole`
 
@@ -251,13 +249,11 @@ This illustrates that **effective permissions are the union of all applicable id
 - Reviewed the policy to determine what principal/actions were allowed.
 - Re-attempted the upload of `Image2.jpg` to `bucket3`.
 
-> 📸 **Screenshot 32:** bucket3 bucket policy JSON as viewed while assuming BucketsAccessRole.
+> <img width="1440" height="705" alt="image" src="https://github.com/user-attachments/assets/a5347ad6-3b59-468f-9197-5c539d5487d6" />
 
-> 📸 **Screenshot 33:** Result of the upload attempt to bucket3 (success or failure).
+> <img width="288" height="189" alt="assume role otherbucketaccessrole" src="https://github.com/user-attachments/assets/12c23473-42b8-49c9-ad85-7cd99afdb305" />
 
-### 9.3 Result & Explanation
-
-_[Fill in: Did the upload succeed? What did the bucket3 policy grant, and to which principal? Explain in your own words why the upload did or didn't work, referencing the specific statement/action/principal in the bucket3 policy.]_
+> <img width="919" height="310" alt="successfully uploaded an image" src="https://github.com/user-attachments/assets/6aa7758a-64dd-4cb1-b00e-991fdd14be1a" />
 
 ---
 
