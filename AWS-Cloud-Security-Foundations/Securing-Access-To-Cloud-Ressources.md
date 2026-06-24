@@ -53,11 +53,11 @@ Steps performed:
 - Attempted to view **Instances** → received: *"You are not authorized to perform this operation."*
 - Attempted to **Launch instances** → could not select a **Key pair name**, confirming that a required field could not be configured due to missing permissions.
 
-> 📸 **Screenshot 5:** EC2 Dashboard showing API Error messages.
+> <img width="1376" height="586" alt="image" src="https://github.com/user-attachments/assets/4d6a9e09-0d08-40c2-9728-df450ac6feda" />
 
-> 📸 **Screenshot 6:** "You are not authorized to perform this operation" message on the Instances page.
+> <img width="1878" height="420" alt="image" src="https://github.com/user-attachments/assets/d4c3f4a3-c521-4009-9b77-96c4d7e07e35" />
 
-> 📸 **Screenshot 7:** Launch Instance wizard showing the Key pair name error.
+> <img width="1127" height="431" alt="image" src="https://github.com/user-attachments/assets/11863359-3865-4182-ae90-d3c349bb6a23" />
 
 **Observation:** `devuser` has no EC2 permissions at all — not even read access in most areas.
 
