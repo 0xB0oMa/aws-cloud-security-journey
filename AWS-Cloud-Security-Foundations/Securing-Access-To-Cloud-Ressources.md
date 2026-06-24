@@ -27,7 +27,7 @@ The lab environment was pre-provisioned with:
 
 ### 2.2 Final Architecture
 
-> 📸 **Screenshot 2:** End-state architecture diagram showing the IAM user/role relationship to the buckets, plus any additional resources referenced (state machine, Lambda functions, SNS topic) if covered in your environment.
+> <img width="1088" height="515" alt="image" src="https://github.com/user-attachments/assets/760f67a2-1571-4f96-988b-6a4bf1730a41" />
 
 ---
 
