@@ -292,7 +292,7 @@ ssh ec2-user@<AppServerPrivateIP>
 touch newfile.txt
 ```
 
-> <img width="636" height="454" alt="image" src="https://github.com/user-attachments/assets/4e26db3b-78cc-4cb4-b9c8-b20b07009ee0" />
+> 📸 **Screenshot 39:** Terminal showing the prompt change to [ec2-user@appserver] after connecting.
 
 > 📸 **Screenshot 40:** Terminal confirming `newfile.txt` was created on the AppServer (e.g., via `ls`).
 
