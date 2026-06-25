@@ -1,10 +1,5 @@
 # Lab 4.1: Securing VPC Resources by Using Security Groups
 
-**Course:** AWS Networking / Security Fundamentals
-**Duration:** ~90 minutes
-**Date Completed:** _[fill in date]_
-**Author:** _[your name]_
-
 ---
 
 ## 1. Objectives
@@ -36,7 +31,7 @@ The lab environment included:
   - `ProxyServer2` — public subnet B, forwards HTTP traffic to AppServer
 - Security groups: `AppServerSG`, `ProxySG`, `ProxySG2`
 
-> 📸 **Screenshot 1:** Starting architecture diagram (from the lab overview page).
+> <img width="748" height="501" alt="image" src="https://github.com/user-attachments/assets/f2f42dbe-6fa0-491f-a421-21a647798441" />
 
 ### 2.2 Final Architecture (after all tasks)
 
@@ -358,9 +353,3 @@ sudo sed -i 's/instance!/instance! Session manager was used to edit this file./g
 | Session Manager | Eliminates the need for an open SSH port or a bastion host entirely, using an outbound connection to the SSM service. |
 
 ---
-
-## 13. Lab Completion
-
-> 📸 **Screenshot 46:** Grades panel after submitting the lab, showing points earned per task.
-
-**Final Notes / Reflections:** _[optional — note anything surprising, such as the NACL rule-ordering behavior, or questions to revisit for the exam]_
