@@ -74,11 +74,11 @@ The lab environment included:
 - **Inbound rules:** HTTP (TCP 80) from source `0.0.0.0/0` (anywhere).
 - **Outbound rules:** All traffic allowed (default).
 
-> 📸 **Screenshot 10:** AppServer "Details" tab showing private-only IP addressing.
+> <img width="1557" height="587" alt="image" src="https://github.com/user-attachments/assets/75aad526-2faf-4d16-bdfe-199d6c14f3a0" />
 
-> 📸 **Screenshot 11:** AppServerSG inbound rules showing HTTP/80 open to 0.0.0.0/0.
+> <img width="1887" height="322" alt="image" src="https://github.com/user-attachments/assets/3d7b311c-48a5-4661-b8f2-af5e22e97b45" />
 
-> 📸 **Screenshot 12:** AppServerSG outbound rules showing all traffic allowed.
+> <img width="1885" height="319" alt="image" src="https://github.com/user-attachments/assets/03c7cba0-fe03-48d3-beab-8c96eaaedd44" />
 
 **Key concept noted:** Security groups are **stateful** — return traffic for an allowed outbound/inbound request is automatically permitted regardless of the rules in the other direction.
 
@@ -92,9 +92,9 @@ The lab environment included:
 - Confirmed `0.0.0.0/0` routes to an **internet gateway** (not a NAT gateway) — this is what makes it a "public" subnet.
 - Verified the internet gateway is associated with `LabVPC`.
 
-> 📸 **Screenshot 13:** PublicSubnetA route table showing the route to the internet gateway.
+> <img width="1573" height="298" alt="image" src="https://github.com/user-attachments/assets/5aca541e-8d37-4833-89f3-811fc5ce2997" />
 
-> 📸 **Screenshot 14:** Internet gateway details page.
+> <img width="1566" height="254" alt="image" src="https://github.com/user-attachments/assets/6dc86c69-4f59-4c4c-b4d0-004c34195596" />
 
 ### 5.2 ProxyServer1 (PublicSubnetA)
 
@@ -102,20 +102,22 @@ The lab environment included:
 - Confirmed it has a **public IPv4 address** (unlike AppServer).
 - Security tab → security group `ProxySG` → inbound rule allows HTTP/80 from anywhere.
 
-> 📸 **Screenshot 15:** ProxyServer1 details tab showing its public IP.
+> <img width="1560" height="358" alt="image" src="https://github.com/user-attachments/assets/d71602c5-a481-4997-8a6a-73e38cfa314e" />
 
-> 📸 **Screenshot 16:** ProxySG inbound rules showing HTTP/80 open to all sources.
+> <img width="1888" height="319" alt="image" src="https://github.com/user-attachments/assets/adcd8c5f-6695-4c16-8298-9fbfd19b8f91" />
 
 ### 5.3 ProxyServer2 (PublicSubnetB) — Add Inbound Rule
 
 - Selected `ProxyServer2`, confirmed it runs in `PublicSubnetB` with a public IP, and is associated with `ProxySG2`.
 - Edited `ProxySG2` inbound rules → added a new rule: **Type = HTTP**, **Source = Anywhere-IPv4** → saved.
 
-> 📸 **Screenshot 17:** ProxyServer2 details tab confirming subnet and public IP.
+> <img width="1555" height="400" alt="image" src="https://github.com/user-attachments/assets/d4af9d72-4e06-42fb-85c6-f8e5661413b3" />
 
-> 📸 **Screenshot 18:** "Edit inbound rules" dialog for ProxySG2 with the new HTTP rule added before saving.
+> <img width="1901" height="426" alt="image" src="https://github.com/user-attachments/assets/c7eda788-d770-4eb6-ba88-3dd1ba91365a" />
 
-> 📸 **Screenshot 19:** ProxySG2 inbound rules after saving, showing HTTP/80 now allowed.
+> <img width="1896" height="575" alt="image" src="https://github.com/user-attachments/assets/a88e3885-5174-4b11-a33f-1d64d0b41102" />
+
+> <img width="751" height="499" alt="image" src="https://github.com/user-attachments/assets/5a7aaf21-69cb-48fa-a3d7-42dd6f7af57b" />
 
 ---
 
@@ -125,9 +127,9 @@ The lab environment included:
 - Repeated the same test with `ProxyServer2`'s public IP → website also loaded successfully.
 - Closed both tabs.
 
-> 📸 **Screenshot 20:** Website loaded successfully via ProxyServer1's public IP.
+> <img width="1670" height="169" alt="image" src="https://github.com/user-attachments/assets/1e48726b-ab10-4b6b-8aa2-9f1e8ebf0d35" />
 
-> 📸 **Screenshot 21:** Website loaded successfully via ProxyServer2's public IP.
+> <img width="1662" height="152" alt="image" src="https://github.com/user-attachments/assets/e8562820-8e66-40c9-9a6d-37414624680b" />
 
 **Analysis:** At this point, both `ProxySG` and `ProxySG2` allow inbound HTTP from anywhere, and `AppServerSG` allows inbound HTTP from anywhere — so both proxy paths to the AppServer succeed.
 
@@ -135,24 +137,26 @@ The lab environment included:
 
 ## 7. Task 4: Restricting HTTP Access by Using an IP Address
 
+<img width="899" height="497" alt="image" src="https://github.com/user-attachments/assets/678bbc13-dda9-404f-a3ab-24bb28920f0a" />
+
 - Retrieved `ProxyServer1PrivateIP` from the **AWS Details** panel.
 - Edited `AppServerSG` inbound rules:
   - Removed the existing `0.0.0.0/0` source on the HTTP rule.
   - Added `ProxyServer1PrivateIP/32` as the new source.
   - Saved rules.
 
-> 📸 **Screenshot 22:** AWS Details panel showing the ProxyServer1PrivateIP value (can redact other fields).
+> <img width="1231" height="408" alt="image" src="https://github.com/user-attachments/assets/8c04513c-98cb-403d-b4e8-39323baddf75" />
 
-> 📸 **Screenshot 23:** AppServerSG "Edit inbound rules" showing the new restricted source (ProxyServer1's private IP /32).
+> <img width="1892" height="325" alt="image" src="https://github.com/user-attachments/assets/5626388f-4b3f-4cfe-9bcf-4351a2d95913" />
 
 ### 7.1 Re-test Access
 
 - **Via ProxyServer1's public IP:** website loaded successfully (source IP matches the new rule).
 - **Via ProxyServer2's public IP:** connection **timed out** (source IP does not match the rule).
 
-> 📸 **Screenshot 24:** Successful page load via ProxyServer1 after the restriction.
+> <img width="1672" height="157" alt="image" src="https://github.com/user-attachments/assets/c519250b-ebbb-41cd-8a20-6245c74a3dd1" />
 
-> 📸 **Screenshot 25:** Connection timeout / failure when accessing via ProxyServer2.
+> <img width="1492" height="828" alt="image" src="https://github.com/user-attachments/assets/7e88ba35-f9cf-4215-9cb7-08554a992618" />
 
 **Analysis:** `AppServerSG` now only accepts HTTP traffic whose source IP is `ProxyServer1`'s private IP, so traffic forwarded from `ProxyServer2` is rejected even though `ProxySG2` itself still allows the inbound connection from the internet to ProxyServer2.
 
