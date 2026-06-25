@@ -292,9 +292,9 @@ ssh ec2-user@<AppServerPrivateIP>
 touch newfile.txt
 ```
 
-> 📸 **Screenshot 39:** Terminal showing the prompt change to [ec2-user@appserver] after connecting.
+> <img width="409" height="470" alt="image" src="https://github.com/user-attachments/assets/8e62e56d-3ac9-439e-9f6f-fb28d8248e7a" />
 
-> 📸 **Screenshot 40:** Terminal confirming `newfile.txt` was created on the AppServer (e.g., via `ls`).
+> <img width="403" height="143" alt="image" src="https://github.com/user-attachments/assets/310d0279-2c2a-4d72-9a3d-43d8b3e0311a" />
 
 Disconnected from both hosts:
 
@@ -303,7 +303,7 @@ exit   # back to bastion
 exit   # back to local Ubuntu terminal
 ```
 
-> 📸 **Screenshot 41:** Terminal showing the prompt returning to the local Ubuntu shell after both `exit` commands.
+> <img width="471" height="95" alt="image" src="https://github.com/user-attachments/assets/2a8fb475-3537-42ac-a388-f513fa9e7a98" />
 
 **Analysis:** The `-A` flag forwarded the SSH agent (holding `labsuser.pem`) from the local machine through the bastion host to the AppServer — the private key itself was never copied onto the bastion. The connection succeeded because `AppServerSG` explicitly trusts SSH traffic sourced from the bastion's private IP.
 
@@ -314,9 +314,9 @@ exit   # back to local Ubuntu terminal
 - In the EC2 console, selected `AppServer` → **Connect** → **Session Manager** tab → **Connect**.
 - A new browser tab opened with a direct shell session on the AppServer (no bastion, no open SSH port required).
 
-> 📸 **Screenshot 42:** Session Manager "Connect" tab before connecting.
+> <img width="1865" height="534" alt="image" src="https://github.com/user-attachments/assets/dd78a7a2-ead7-4183-a177-1ba4e18c898c" />
 
-> 📸 **Screenshot 43:** Active Session Manager terminal session connected to the AppServer.
+> <img width="1920" height="187" alt="image" src="https://github.com/user-attachments/assets/1342dc58-e5ab-4c3d-bee8-13442b877644" />
 
 - Modified the hosted website's HTML via the session:
 
@@ -324,11 +324,11 @@ exit   # back to local Ubuntu terminal
 sudo sed -i 's/instance!/instance! Session manager was used to edit this file./g' /var/www/html/index.html
 ```
 
-> 📸 **Screenshot 44:** Terminal showing the `sed` command executed successfully in the Session Manager session.
+> <img width="1920" height="210" alt="image" src="https://github.com/user-attachments/assets/0acc06d7-d618-4811-ba3d-a65e807888f7" />
 
 - Re-tested the website via `ProxyServer1`'s public IP → page loaded and now displayed the updated text confirming the edit.
 
-> 📸 **Screenshot 45:** Browser showing the updated webpage text ("Session manager was used to edit this file.").
+> <img width="1920" height="202" alt="image" src="https://github.com/user-attachments/assets/5729c069-300c-430b-b766-54123934af08" />
 
 **Analysis:** Session Manager connects to the instance's SSM Agent over an outbound HTTPS connection it initiates — no inbound port 22 needs to be open, and the NACL's port-22 posture (untouched in this lab) is irrelevant. This avoids the operational overhead of maintaining a bastion host while still providing an auditable connection path (integrable with CloudTrail/CloudWatch).
 
