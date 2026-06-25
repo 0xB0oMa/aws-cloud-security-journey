@@ -173,23 +173,25 @@ Goal: Avoid hardcoding individual IPs by referencing a **security group** as the
   - Added a new rule: **Type = HTTP**, **Source = Custom**, typed `sg` in the source field, and selected the `ProxySG` security group from the dropdown.
   - Saved rules.
 
-> 📸 **Screenshot 26:** AppServerSG inbound rule configured with ProxySG referenced as the source.
+> <img width="1896" height="521" alt="image" src="https://github.com/user-attachments/assets/32dc5e6e-43e4-4396-a6fb-6262125206d2" />
 
 ### 8.2 Reassign ProxyServer2 to ProxySG
 
 - Selected `ProxyServer2` → **Actions > Security > Change security groups**.
 - Removed `ProxySG2`, added `ProxySG`, saved.
 
-> 📸 **Screenshot 27:** "Change security groups" dialog for ProxyServer2 — ProxySG2 removed, ProxySG added.
+> <img width="1853" height="386" alt="image" src="https://github.com/user-attachments/assets/0db74f9c-d243-4a6c-a482-2ebd924100d0" />
 
 ### 8.3 Re-test Access
 
 - **Via ProxyServer1's public IP:** website loaded.
 - **Via ProxyServer2's public IP:** website **now also loads** (since ProxyServer2 is now in `ProxySG`, which `AppServerSG` trusts).
 
-> 📸 **Screenshot 28:** Successful page load via ProxyServer1.
+> <img width="1662" height="141" alt="image" src="https://github.com/user-attachments/assets/e53a1be1-0b68-41da-b1f5-209c6d6d8859" />
 
-> 📸 **Screenshot 29:** Successful page load via ProxyServer2 after the security group reassignment.
+> <img width="1657" height="144" alt="image" src="https://github.com/user-attachments/assets/7a42b03e-a1f0-4290-b707-f30abba5626e" />
+
+> <img width="910" height="499" alt="image" src="https://github.com/user-attachments/assets/f0abd79d-84d2-4064-a628-a08e1ba5f2b2" />
 
 **Analysis:** Referencing a security group as a source (instead of static IPs) means any current or future instance placed in `ProxySG` automatically gains access to `AppServer` — no manual IP maintenance required.
 
@@ -206,13 +208,13 @@ Goal: Avoid hardcoding individual IPs by referencing a **security group** as the
   - **Allow/Deny:** Deny
 - Saved changes.
 
-> 📸 **Screenshot 30:** Network ACL inbound rules showing the new Deny rule (#99) for HTTP.
+> <img width="1539" height="654" alt="image" src="https://github.com/user-attachments/assets/49d57f8e-c0a3-4a3b-bab7-426aefc65cd2" />
 
 ### 9.2 Re-test Access
 
 - Loaded `ProxyServer1`'s public IP → connection **timed out**.
 
-> 📸 **Screenshot 31:** Connection timeout after the NACL deny rule was added.
+> <img width="1489" height="833" alt="image" src="https://github.com/user-attachments/assets/daebce71-5002-4570-ba84-e74cc3622136" />
 
 **Analysis:** The NACL operates at the **subnet level**, in addition to security groups at the **instance/ENI level**. Even though the security groups still allow HTTP traffic, the NACL's explicit Deny blocks it — both layers must permit traffic for it to succeed.
 
@@ -224,13 +226,13 @@ Goal: Avoid hardcoding individual IPs by referencing a **security group** as the
   - **Allow/Deny:** Allow
 - Saved changes.
 
-> 📸 **Screenshot 32:** Network ACL inbound rules showing both rule #98 (Allow) and #99 (Deny).
+> <img width="1899" height="558" alt="image" src="https://github.com/user-attachments/assets/b8ba330f-d20e-477a-90a0-e6752d9b4ea1" />
 
 ### 9.4 Re-test Access
 
 - Loaded `ProxyServer1`'s public IP again → website **loaded successfully**.
 
-> 📸 **Screenshot 33:** Successful page load after adding the lower-numbered Allow rule.
+> <img width="1656" height="143" alt="image" src="https://github.com/user-attachments/assets/96860953-b395-44fc-95d2-ec6827a1a9c8" />
 
 **Analysis:** NACL rules are evaluated **in order by rule number, lowest first**, and the **first matching rule wins** — rule #98 (Allow) is evaluated before rule #99 (Deny), so traffic is permitted despite the higher-numbered Deny rule still being present.
 
@@ -242,7 +244,7 @@ Goal: Avoid hardcoding individual IPs by referencing a **security group** as the
 
 - Renamed `ProxyServer2` to **Bastion** (via the inline edit icon on the instance Name field).
 
-> 📸 **Screenshot 34:** Instance renamed to "Bastion" in the EC2 console.
+> <img width="1550" height="243" alt="image" src="https://github.com/user-attachments/assets/a135a5a3-6f7f-4a11-86ac-cdb7677eb9b5" />
 
 ### 10.2 Create BastionSG
 
@@ -252,14 +254,14 @@ Goal: Avoid hardcoding individual IPs by referencing a **security group** as the
   - **VPC:** LabVPC
   - **Inbound rule:** SSH (TCP 22) from **Anywhere-IPv4**
 
-> 📸 **Screenshot 35:** "Create security group" form for BastionSG with the SSH inbound rule.
+> <img width="1567" height="683" alt="image" src="https://github.com/user-attachments/assets/1feea8b6-b95a-4fc3-889f-750b1e70333c" />
 
 ### 10.3 Reassign Security Group on the Bastion Instance
 
 - Selected the `Bastion` instance → **Actions > Security > Change security groups**.
 - Removed `ProxySG`, added `BastionSG`, saved.
 
-> 📸 **Screenshot 36:** "Change security groups" dialog — ProxySG removed, BastionSG added for the Bastion instance.
+> <img width="1870" height="649" alt="image" src="https://github.com/user-attachments/assets/3b57b5a7-9436-470a-a3e1-c10f9f16d30c" />
 
 ### 10.4 Allow SSH from the Bastion in AppServerSG
 
@@ -269,7 +271,7 @@ Goal: Avoid hardcoding individual IPs by referencing a **security group** as the
   - **Source:** Custom → `BastionPrivateIP/32`
 - Saved rules.
 
-> 📸 **Screenshot 37:** AppServerSG inbound rules showing the new SSH rule scoped to the Bastion's private IP.
+> <img width="1888" height="412" alt="image" src="https://github.com/user-attachments/assets/94e14e8d-f317-439a-8cb1-caa92a366cde" />
 
 ### 10.5 Connect via SSH Agent Forwarding
 
@@ -281,7 +283,7 @@ ssh-add ~/.ssh/labsuser.pem
 ssh -i ~/.ssh/labsuser.pem -A ec2-user@<BastionPublicIP>
 ```
 
-> 📸 **Screenshot 38:** Terminal showing successful SSH connection to the bastion host (`[ec2-user@bastion]` prompt).
+> <img width="636" height="454" alt="image" src="https://github.com/user-attachments/assets/9bb4c6a7-e6f8-4461-82f1-5fcba38bbde1" />
 
 From the bastion host, connected onward to the AppServer:
 
@@ -290,7 +292,7 @@ ssh ec2-user@<AppServerPrivateIP>
 touch newfile.txt
 ```
 
-> 📸 **Screenshot 39:** Terminal showing the prompt change to `[ec2-user@appserver]` after connecting.
+> <img width="636" height="454" alt="image" src="https://github.com/user-attachments/assets/4e26db3b-78cc-4cb4-b9c8-b20b07009ee0" />
 
 > 📸 **Screenshot 40:** Terminal confirming `newfile.txt` was created on the AppServer (e.g., via `ls`).
 
