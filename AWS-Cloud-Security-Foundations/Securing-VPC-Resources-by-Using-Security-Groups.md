@@ -33,21 +33,6 @@ The lab environment included:
 
 > <img width="748" height="501" alt="image" src="https://github.com/user-attachments/assets/f2f42dbe-6fa0-491f-a421-21a647798441" />
 
-### 2.2 Final Architecture (after all tasks)
-
-> 📸 **Screenshot 2:** Final architecture diagram showing the bastion host, Session Manager connection path, and updated security group associations.
-
----
-
-## 3. Accessing the AWS Management Console
-
-- Started the lab and waited for the environment status to turn green.
-- Opened the AWS Management Console by choosing the **AWS** link (not via a separate login URL, as in the IAM lab).
-
-> 📸 **Screenshot 3:** Lab landing page with the green status indicator and AWS Details panel visible.
-
-> 📸 **Screenshot 4:** AWS Management Console opened in a new tab.
-
 ---
 
 ## 4. Task 1: Analyzing the VPC and Private Subnet Resource Settings
@@ -58,9 +43,9 @@ The lab environment included:
 - Confirmed two VPCs exist: the default VPC (`172.31.0.0/16`) and `LabVPC` (`10.0.0.0/16`).
 - Viewed **Subnets**, sorted by VPC column, and identified the three subnets in `LabVPC`: `PrivateSubnet`, `PublicSubnetA`, `PublicSubnetB`.
 
-> 📸 **Screenshot 5:** "Your VPCs" list showing both VPCs and their CIDR ranges.
+> <img width="1920" height="376" alt="image" src="https://github.com/user-attachments/assets/92b1e80b-c185-4783-a1e4-1683970bd47f" />
 
-> 📸 **Screenshot 6:** Subnets list sorted by VPC, showing the three LabVPC subnets.
+> <img width="1920" height="432" alt="image" src="https://github.com/user-attachments/assets/ee1a93ed-5c87-4781-887e-2e9ce262756f" />
 
 ### 4.2 PrivateSubnet Routing
 
@@ -71,11 +56,13 @@ The lab environment included:
 - Renamed the route table from `changeme` to **Private** via the Tags tab.
 - Opened the NAT gateway details and confirmed it runs in `PublicSubnetA`.
 
-> 📸 **Screenshot 7:** Route table routes tab showing local + NAT gateway routes for PrivateSubnet.
+> <img width="1891" height="240" alt="image" src="https://github.com/user-attachments/assets/50ac5405-6d46-4cca-8b39-0e6cde96bdc7" />
 
-> 📸 **Screenshot 8:** Tags tab — renaming the route table to "Private."
+> <img width="1558" height="373" alt="image" src="https://github.com/user-attachments/assets/ca53e162-1c4a-4b40-a93a-b8ec4aad7aff" />
 
-> 📸 **Screenshot 9:** NAT gateway details page confirming it resides in PublicSubnetA.
+> <img width="1557" height="102" alt="image" src="https://github.com/user-attachments/assets/24cb4b2e-cb15-4f57-8d67-86d0c4f422b3" />
+
+> <img width="746" height="499" alt="image" src="https://github.com/user-attachments/assets/609ab6a3-471c-43ef-9857-77be3373d473" />
 
 **Analysis:** Because the private subnet routes outbound traffic through a NAT gateway (not directly to an internet gateway), instances there can initiate outbound connections to the internet, but they are not directly reachable from the internet and have no public IP.
 
