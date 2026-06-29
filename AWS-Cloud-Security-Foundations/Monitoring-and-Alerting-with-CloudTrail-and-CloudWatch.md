@@ -299,9 +299,3 @@ filter eventSource="signin.amazonaws.com" and eventName="ConsoleLogin" and respo
 | CloudWatch Logs Insights | Enables ad hoc, SQL-like querying and aggregation directly against log data for investigation, without needing a pre-defined metric filter. |
 
 ---
-
-## 10. Lab Completion
-
-> 📸 **Screenshot 42:** Grades panel after submitting the lab, showing points earned per task.
-
-**Final Notes / Reflections:** _[optional — e.g., compare when you'd use an EventBridge rule vs. a CloudWatch metric filter/alarm for a given monitoring use case]_
