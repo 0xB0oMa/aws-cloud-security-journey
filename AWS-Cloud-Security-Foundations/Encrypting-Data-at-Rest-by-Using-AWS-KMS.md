@@ -35,15 +35,6 @@ By the end of this lab, I was able to:
 
 ---
 
-## 3. Accessing the AWS Management Console
-
-- Started the lab and waited for the green status indicator.
-- Opened the console via the **AWS** link.
-
-> 📸 **Screenshot 3:** Lab landing page with the green status indicator and AWS Details panel.
-
----
-
 ## 4. Task 1: Creating an AWS KMS Key
 
 - Opened the **AWS KMS console** → **Customer managed keys** → **Create key**.
