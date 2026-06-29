@@ -46,9 +46,9 @@ By the end of this lab, I was able to:
 - Changed the filter from **Read-only** to **Event source**, filtered on `cloudformation.amazonaws.com`.
 - Opened the most recent **CreateStack** event and reviewed the record (userIdentity, eventTime, awsRegion, etc.).
 
-> 📸 **Screenshot 5:** Event history filtered by event source = cloudformation.amazonaws.com.
+> <img width="1864" height="629" alt="image" src="https://github.com/user-attachments/assets/6c8239d6-9494-400a-abbc-c8eca9ac3f18" />
 
-> 📸 **Screenshot 6:** CreateStack event record showing userIdentity, eventTime, and awsRegion.
+> <img width="814" height="692" alt="image" src="https://github.com/user-attachments/assets/0c2d47de-4fa7-4822-89b0-6175a2afef9a" />
 
 **Note:** Event history shows the last 90 days of **management events** by default per Region. A configured **trail** is needed to retain history longer and to optionally capture data events / read-only activity.
 
@@ -63,17 +63,15 @@ By the end of this lab, I was able to:
 - On the **Choose log events** page: kept **Management events**, **Read and Write**; did not select Data events or Insights events.
 - At the final step, **chose Cancel** — the lab account's permissions intentionally prevent creating a new trail with CloudWatch Logs enabled.
 
-> 📸 **Screenshot 7:** "Choose trail attributes" page filled in with MyLabCloudTrail settings.
+> <img width="1480" height="642" alt="image" src="https://github.com/user-attachments/assets/76b718b5-b63e-45dd-a68e-57ce1eb8b4db" />
 
-> 📸 **Screenshot 8:** "Choose log events" page showing Management events / Read and Write selected.
-
-> 📸 **Screenshot 9:** Final review page before choosing Cancel (demonstrating the configuration without completing creation).
+> <img width="1087" height="667" alt="image" src="https://github.com/user-attachments/assets/74adcdaa-f27e-44d1-94a8-3b126f26fc28" />
 
 ### 4.3 Analyzing the Existing Trail
 
 - Reviewed the preexisting trail, **LabCloudTrail**, and confirmed it uses equivalent settings (CloudWatch Logs enabled) to what was just configured manually.
 
-> 📸 **Screenshot 10:** LabCloudTrail trail details page showing CloudWatch Logs integration.
+> <img width="1841" height="322" alt="image" src="https://github.com/user-attachments/assets/766c8ac9-64e5-45b4-a429-0e4dead19096" />
 
 **Analysis:** This pre-existing trail (with CloudWatch Logs enabled) is the foundation for the EventBridge and CloudWatch alarm work in later tasks, since EventBridge's `AWS API Call via CloudTrail` event pattern relies on a trail with logging enabled.
 
@@ -89,9 +87,9 @@ By the end of this lab, I was able to:
   - **Access policy:** Publish = Everyone, Subscribe = Everyone
 - Chose **Create topic**.
 
-> 📸 **Screenshot 11:** Create topic form with name and access policy settings configured.
+> <img width="1583" height="454" alt="image" src="https://github.com/user-attachments/assets/6b0b22c1-2606-4f2c-9174-57ab12d0241f" />
 
-> 📸 **Screenshot 12:** MySNSTopic details page after creation, showing its ARN.
+> <img width="1531" height="433" alt="image" src="https://github.com/user-attachments/assets/d62ef6c0-0c9c-4d9b-a4d4-77d9464664c4" />
 
 ### 5.2 Created an Email Subscription
 
@@ -101,16 +99,16 @@ By the end of this lab, I was able to:
   - **Endpoint:** _[your email]_
 - Chose **Create subscription**.
 
-> 📸 **Screenshot 13:** Create subscription form with Email protocol and endpoint entered.
+> <img width="1525" height="517" alt="image" src="https://github.com/user-attachments/assets/39592fab-66dd-4332-9874-28b21761a370" />
 
 ### 5.3 Confirmed the Subscription
 
 - Checked email inbox for the AWS Notifications confirmation message.
 - Chose **Confirm subscription** link → confirmed successfully in browser.
 
-> 📸 **Screenshot 14:** Confirmation email from AWS Notifications.
+> <img width="1410" height="522" alt="image" src="https://github.com/user-attachments/assets/b30efcc4-f819-40a0-b190-a9cd9bcd3215" />
 
-> 📸 **Screenshot 15:** Browser page confirming the subscription was successful.
+> <img width="915" height="397" alt="image" src="https://github.com/user-attachments/assets/f36150f0-f1b0-46e0-ba1f-6449e237b69b" />
 
 ---
 
@@ -123,7 +121,7 @@ By the end of this lab, I was able to:
   - **Event bus:** default
   - **Rule type:** Rule with an event pattern
 
-> 📸 **Screenshot 16:** "Define rule detail" screen with name, event bus, and rule type configured.
+> <img width="1520" height="634" alt="image" src="https://github.com/user-attachments/assets/977ef3be-7efc-47ed-899c-839fe923947f" />
 
 ### 6.2 Built the Event Pattern
 
@@ -141,7 +139,7 @@ By the end of this lab, I was able to:
 }
 ```
 
-> 📸 **Screenshot 17:** Event pattern JSON editor with the custom pattern entered.
+> <img width="1485" height="293" alt="image" src="https://github.com/user-attachments/assets/31cc8d48-3828-4e7c-bda2-a8ba10c0b811" />
 
 ### 6.3 Configured the Target
 
