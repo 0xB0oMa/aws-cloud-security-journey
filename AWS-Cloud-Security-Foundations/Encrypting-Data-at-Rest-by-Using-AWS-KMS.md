@@ -44,17 +44,15 @@ By the end of this lab, I was able to:
 - **Key users:** `voclabs` role.
 - Reviewed settings and chose **Finish**.
 
-> 📸 **Screenshot 4:** "Create key" — Key type step (Symmetric selected).
+> <img width="1904" height="474" alt="image" src="https://github.com/user-attachments/assets/d9018e16-8056-4382-8cc2-7cd19055c923" />
 
-> 📸 **Screenshot 5:** Alias step showing `MyKMSKey` entered.
+> <img width="1859" height="321" alt="image" src="https://github.com/user-attachments/assets/f0820882-d453-45c1-9fe6-81830e58a185" />
 
-> 📸 **Screenshot 6:** Key administrators step with `voclabs` role selected.
+> <img width="1873" height="496" alt="image" src="https://github.com/user-attachments/assets/4928bbe9-bf9c-49e2-afee-758aedcf6fd5" />
 
-> 📸 **Screenshot 7:** Key usage permissions step with `voclabs` role selected as key user.
+> <img width="1850" height="493" alt="image" src="https://github.com/user-attachments/assets/b4a46d83-2f9c-4b45-97e3-4dc4b2975b37" />
 
-> 📸 **Screenshot 8:** Final Review page before choosing Finish.
-
-> 📸 **Screenshot 9:** `MyKMSKey` listed under Customer managed keys after creation.
+> <img width="1885" height="393" alt="image" src="https://github.com/user-attachments/assets/e73dc474-6ed8-43fe-afb2-f47e61098da6" />
 
 **Note:** Symmetric KMS keys never leave AWS KMS unencrypted — this is a 256-bit secret key used to generate/encrypt/decrypt data keys, not directly to encrypt large data.
 
@@ -68,7 +66,7 @@ By the end of this lab, I was able to:
 - Opened the **Amazon S3 console** → bucket containing `imagebucket` → **Properties** tab.
 - Confirmed **Default encryption** is enabled (new objects are automatically encrypted using the bucket default).
 
-> 📸 **Screenshot 10:** Bucket Properties tab showing Default encryption enabled.
+> <img width="1867" height="439" alt="image" src="https://github.com/user-attachments/assets/e88a4ca3-a2ee-4904-bf98-416972c39dec" />
 
 ### 5.2 Uploaded `clock.png` with Explicit SSE-KMS Encryption
 
@@ -79,15 +77,15 @@ By the end of this lab, I was able to:
   - **AWS KMS key:** Choose from your AWS KMS keys → `MyKMSKey`.
 - Chose **Upload**, then **Close**.
 
-> 📸 **Screenshot 11:** Upload screen with Server-side encryption settings configured for SSE-KMS using MyKMSKey.
+> <img width="1240" height="725" alt="image" src="https://github.com/user-attachments/assets/fa7adf45-3c0d-4e3e-84ee-4dc34fc76862" />
 
-> 📸 **Screenshot 12:** Bucket Objects list showing `clock.png` after a successful upload.
+> <img width="1847" height="647" alt="image" src="https://github.com/user-attachments/assets/b5f4a160-e103-4126-a658-9b0d3fe5ab19" />
 
 ### 5.3 Verified Object-Level Encryption Settings
 
 - Opened `clock.png` → **Properties** tab → confirmed **SSE-KMS** is enabled on the object.
 
-> 📸 **Screenshot 13:** clock.png Properties tab showing SSE-KMS server-side encryption enabled.
+> <img width="1864" height="429" alt="image" src="https://github.com/user-attachments/assets/5b58363b-06ec-4ff0-b471-d6c4954e7f7f" />
 
 **How it worked (per lab diagram):**
 1. Requested upload of an encrypted object.
@@ -105,7 +103,7 @@ By the end of this lab, I was able to:
 - Copied the **Object URL** for `clock.png` and opened it in a new tab.
 - Result: **Access Denied** (bucket still has Block Public Access enabled by default).
 
-> 📸 **Screenshot 14:** Access Denied error when loading the object URL directly.
+> <img width="1306" height="288" alt="image" src="https://github.com/user-attachments/assets/978ae089-9ae3-4ab7-bffd-cf1cbb531ba2" />
 
 ### 6.2 Opened Up Public Access
 
@@ -113,20 +111,20 @@ By the end of this lab, I was able to:
 - **Permissions** tab → **Object Ownership** → **Edit** → selected **ACLs enabled** → acknowledged → kept **Bucket owner preferred** → **Save changes**.
 - **Objects** tab → selected `clock.png` → **Actions > Make public using ACL** → **Make public** → **Close**.
 
-> 📸 **Screenshot 15:** Block public access settings being edited (checkbox cleared).
+> <img width="1543" height="587" alt="image" src="https://github.com/user-attachments/assets/5357d3b7-ca75-49e4-8554-9ec003b2538d" />
 
-> 📸 **Screenshot 16:** Confirmation dialog after typing "confirm."
+> <img width="741" height="363" alt="image" src="https://github.com/user-attachments/assets/791fe277-6173-4d8b-9bf1-a514e7f6503d" />
 
-> 📸 **Screenshot 17:** Object Ownership edit screen with "ACLs enabled" selected.
+> <img width="1471" height="646" alt="image" src="https://github.com/user-attachments/assets/694b8bfb-d616-4e59-b0bf-544424a0867b" />
 
-> 📸 **Screenshot 18:** "Make public using ACL" confirmation for clock.png.
+> <img width="1880" height="504" alt="image" src="https://github.com/user-attachments/assets/6cd0920b-1558-441f-8773-d1cae189a910" />
 
 ### 6.3 Re-tested the Object URL (Invalid Argument)
 
 - Refreshed the previously opened object URL tab.
 - Result changed from **Access Denied** to **Invalid Argument**, with a message indicating that SSE-KMS requests require AWS Signature Version 4.
 
-> 📸 **Screenshot 19:** "Invalid Argument" error after making the object public.
+> <img width="1348" height="299" alt="image" src="https://github.com/user-attachments/assets/43ed553f-d4a4-4e31-8ee2-43c1270c50b7" />
 
 **Analysis:** Making the object public removed the *access* barrier, but the object is still **encrypted**. Public, unauthenticated requests can't supply the Signature Version 4 authentication that SSE-KMS requires, so the object remains unreadable to anonymous requesters. This demonstrates encryption as a second layer of defense even if access permissions are misconfigured.
 
@@ -138,9 +136,9 @@ By the end of this lab, I was able to:
 - The image opened successfully in a new tab.
 - Inspected the resulting URL and noted multiple `X-Amz-*` query parameters — evidence of automatically-included Signature Version 4 authentication info.
 
-> 📸 **Screenshot 20:** clock.png image successfully displayed after opening from the console.
+> <img width="1435" height="849" alt="image" src="https://github.com/user-attachments/assets/416d2bc7-bbcb-46ee-8e57-f04bfde0040f" />
 
-> 📸 **Screenshot 21:** Browser address bar showing the signed URL with X-Amz- parameters (credentials redacted/blurred if needed).
+> <img width="1128" height="36" alt="image" src="https://github.com/user-attachments/assets/d7672520-b1a7-4ab4-a4a9-f6f95ab4aa43" />
 
 **How it worked (per lab diagram):**
 1. Requested to open the object via the console (authenticated).
@@ -157,21 +155,21 @@ By the end of this lab, I was able to:
 - Opened the **CloudTrail console** → **Event history**.
 - Changed the filter from **Read-only** to **Event source**, and filtered on `kms.amazonaws.com`.
 
-> 📸 **Screenshot 22:** CloudTrail Event history filtered by event source = kms.amazonaws.com.
+> <img width="1862" height="707" alt="image" src="https://github.com/user-attachments/assets/fd90aa4c-9f68-4252-b377-29a37ca006d9" />
 
 ### 8.1 GenerateDataKey Event
 
 - Opened the **GenerateDataKey** event and reviewed the event record.
 - Confirmed the `keyId` matches `MyKMSKey`'s key ID, the target S3 object ARN, and the `principalId` of the requester.
 
-> 📸 **Screenshot 23:** GenerateDataKey event record with keyId, eventName, and S3 object ARN highlighted/visible.
+> <img width="1099" height="344" alt="image" src="https://github.com/user-attachments/assets/afa23078-12b8-4236-9616-0d7036bfd2ca" />
 
 ### 8.2 Decrypt Event
 
 - Returned to Event history → opened the **Decrypt** event.
 - Confirmed it corresponds to opening `clock.png` from the console, again showing the requester identity, the KMS key used, and the decrypted S3 object.
 
-> 📸 **Screenshot 24:** Decrypt event record showing requester identity, key used, and object decrypted.
+> <img width="934" height="689" alt="image" src="https://github.com/user-attachments/assets/361841e7-5a4b-4ae4-84d4-64fdd154e2c8" />
 
 **Analysis:** CloudTrail's Event history retains 90 days of API activity by default. For longer retention/analysis, a CloudTrail **trail** would need to be created.
 
@@ -184,13 +182,13 @@ By the end of this lab, I was able to:
 - **EC2 console** → **Instances** → `LabInstance` → **Storage** tab.
 - Confirmed the attached root volume shows **Not encrypted**.
 
-> 📸 **Screenshot 25:** LabInstance Storage tab showing the unencrypted root volume.
+> <img width="1579" height="638" alt="image" src="https://github.com/user-attachments/assets/e27b1fcb-2be6-42cb-9f96-e976cacb4be7" />
 
 ### 9.2 Stopped the Instance
 
 - Selected `LabInstance` → **Instance state > Stop instance** → confirmed.
 
-> 📸 **Screenshot 26:** Instance state showing "Stopped" after confirming the stop action.
+> <img width="1587" height="250" alt="image" src="https://github.com/user-attachments/assets/b494fa74-c846-4fd3-8091-aeecdfaae899" />
 
 ### 9.3 Created a Snapshot of the Unencrypted Volume
 
@@ -198,9 +196,9 @@ By the end of this lab, I was able to:
 - Noted the **Availability Zone** of the volume.
 - **Actions > Create snapshot** → added tag `Name = Unencrypted Root Volume` → **Create snapshot**.
 
-> 📸 **Screenshot 27:** Volume details page showing the Availability Zone.
+> <img width="1583" height="263" alt="image" src="https://github.com/user-attachments/assets/4da22ede-7a0b-4eb5-bd10-a9a498a89aed" />
 
-> 📸 **Screenshot 28:** Create snapshot dialog with the Name tag added.
+> <img width="1852" height="704" alt="image" src="https://github.com/user-attachments/assets/1319b0ed-c173-46ce-9f11-3728f73bdb3a" />
 
 ### 9.4 Created an Encrypted Volume from the Snapshot
 
@@ -212,9 +210,9 @@ By the end of this lab, I was able to:
   - **KMS key:** `MyKMSKey`.
   - **Create volume**.
 
-> 📸 **Screenshot 29:** Snapshot status = Completed, encryption = Not encrypted.
+> <img width="1604" height="206" alt="image" src="https://github.com/user-attachments/assets/832ea7e1-30cc-47a9-88fe-503fe56c0e57" />
 
-> 📸 **Screenshot 30:** "Create volume from snapshot" dialog with Encrypt this volume + MyKMSKey selected.
+> <img width="1079" height="650" alt="image" src="https://github.com/user-attachments/assets/a5845ef8-ae5e-42ec-b2e3-9e84879629c6" />
 
 ### 9.5 Labeled the Volumes
 
@@ -222,7 +220,7 @@ By the end of this lab, I was able to:
   - In-use volume → renamed to **Old unencrypted root volume**
   - Available volume → renamed to **New encrypted root volume**
 
-> 📸 **Screenshot 31:** Volumes list showing both volumes renamed appropriately.
+> <img width="1590" height="245" alt="image" src="https://github.com/user-attachments/assets/83c1ec81-6b3e-413a-9006-8819c116f361" />
 
 ### 9.6 Swapped the Root Volume
 
@@ -232,9 +230,9 @@ By the end of this lab, I was able to:
   - **Device name:** `/dev/xvda`
   - **Attach volume**.
 
-> 📸 **Screenshot 32:** Detach volume confirmation for the old unencrypted volume.
+> <img width="1561" height="316" alt="image" src="https://github.com/user-attachments/assets/40884f7e-c2b8-4268-99fe-267d9abc3d29" />
 
-> 📸 **Screenshot 33:** Attach volume dialog showing LabInstance and device name `/dev/xvda`.
+> <img width="1857" height="647" alt="image" src="https://github.com/user-attachments/assets/dfc59622-8f61-471b-955c-a2871c393acb" />
 
 ### 9.7 Verified the New Encrypted Root Volume
 
@@ -242,7 +240,7 @@ By the end of this lab, I was able to:
 - Confirmed the attached volume now shows **Encrypted** with a KMS Key ID.
 - **Did not** start the instance yet (per instructions — reserved for Task 7).
 
-> 📸 **Screenshot 34:** LabInstance Storage tab showing the new volume as Encrypted with a KMS Key ID.
+> <img width="1586" height="582" alt="image" src="https://github.com/user-attachments/assets/c47b4633-6971-46e0-8877-28808700cd67" />
 
 **Process summary (per lab diagram):** Stop instance → detach volume → snapshot unencrypted volume → create encrypted volume from snapshot → attach encrypted volume → start instance.
 
@@ -254,23 +252,23 @@ By the end of this lab, I was able to:
 
 - **KMS console** → **Customer managed keys** → selected `MyKMSKey` → **Key actions > Disable** → confirmed.
 
-> 📸 **Screenshot 35:** Confirmation dialog for disabling MyKMSKey.
+> <img width="737" height="588" alt="image" src="https://github.com/user-attachments/assets/450e8e50-fcd7-476e-9f8d-9a6f2aaddaac" />
 
-> 📸 **Screenshot 36:** Customer managed keys list showing MyKMSKey status = Disabled.
+> <img width="1542" height="218" alt="image" src="https://github.com/user-attachments/assets/0bf66162-ad91-4455-9697-6f0b3ec87450" />
 
 ### 10.2 Attempted to Start the EC2 Instance (Failed)
 
 - **EC2 console** → selected `LabInstance` → **Instance state > Start instance**.
 - Instance state briefly showed **Pending**, then reverted to **Stopped**.
 
-> 📸 **Screenshot 37:** Instance state cycling from Pending back to Stopped after the failed start attempt.
+> <img width="1580" height="220" alt="image" src="https://github.com/user-attachments/assets/70d2b55c-ffdc-440a-a0ef-e4b654dfb05f" />
 
 ### 10.3 Attempted to Open the S3 Object (Failed)
 
 - **S3 console** → bucket → selected `clock.png` → **Open**.
 - Result: **KMS.DisabledException** error — the same object that opened successfully in Task 4 now fails.
 
-> 📸 **Screenshot 38:** KMS.DisabledException error when attempting to open clock.png.
+> <img width="1222" height="211" alt="image" src="https://github.com/user-attachments/assets/cb6d2088-a5ee-4758-b531-65d9ff3cbb98" />
 
 ### 10.4 Analyzed the Cause in CloudTrail
 
@@ -279,11 +277,11 @@ By the end of this lab, I was able to:
 - Reviewed the **StartInstances** event immediately after (the API call itself succeeded).
 - Reviewed the **CreateGrant** event immediately after that — showed an **error message indicating the key is disabled**.
 
-> 📸 **Screenshot 39:** DisableKey event record.
+> <img width="706" height="106" alt="image" src="https://github.com/user-attachments/assets/032f3828-92f8-43b8-b1e6-8fc01e03dfbb" />
 
-> 📸 **Screenshot 40:** StartInstances event record (API call succeeded).
+> <img width="871" height="114" alt="image" src="https://github.com/user-attachments/assets/f2a34fc7-d3e0-45f0-82b7-f4017240873e" />
 
-> 📸 **Screenshot 41:** CreateGrant event record showing the error indicating the key is disabled.
+> <img width="1017" height="218" alt="image" src="https://github.com/user-attachments/assets/278cc24c-1ec9-4e6e-b807-74d9a92f1698" />
 
 **Analysis:** Starting the instance required EC2 to ask KMS for the plaintext data key to decrypt the encrypted root volume. Because `MyKMSKey` was disabled, KMS refused to issue the data key, so the guest OS files on the root volume couldn't be decrypted and the instance could never reach the **Running** state — even though the `StartInstances` API call itself was accepted. The same logic explains why `clock.png` could no longer be decrypted: its data key also depends on `MyKMSKey`.
 
@@ -293,9 +291,9 @@ By the end of this lab, I was able to:
 - **EC2 console** → `LabInstance` → **Instance state > Start instance**.
 - Waited for the instance state to reach **Running** before submitting the lab.
 
-> 📸 **Screenshot 42:** MyKMSKey status showing Enabled again.
+> <img width="1540" height="313" alt="image" src="https://github.com/user-attachments/assets/1e5042cd-dae3-4460-8793-fc016ba58a71" />
 
-> 📸 **Screenshot 43:** LabInstance state showing Running after re-enabling the key.
+> <img width="1591" height="292" alt="image" src="https://github.com/user-attachments/assets/25510d91-6a70-49bd-9fbc-d4c9cf090706" />
 
 ---
 
