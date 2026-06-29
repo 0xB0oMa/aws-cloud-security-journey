@@ -121,8 +121,6 @@ By the end of this lab, I was able to:
   - **Event bus:** default
   - **Rule type:** Rule with an event pattern
 
-> <img width="1520" height="634" alt="image" src="https://github.com/user-attachments/assets/977ef3be-7efc-47ed-899c-839fe923947f" />
-
 ### 6.2 Built the Event Pattern
 
 - **Event source:** AWS events or EventBridge partner events
@@ -138,8 +136,6 @@ By the end of this lab, I was able to:
   }
 }
 ```
-
-> <img width="1485" height="293" alt="image" src="https://github.com/user-attachments/assets/31cc8d48-3828-4e7c-bda2-a8ba10c0b811" />
 
 ### 6.3 Configured the Target
 
@@ -160,13 +156,9 @@ By the end of this lab, I was able to:
     ```
 - Chose **Confirm**, then **Next** through tags and review, and **Create rule**.
 
-> 📸 **Screenshot 18:** Select targets section with SNS topic chosen and execution role unchecked.
+> <img width="1520" height="634" alt="image" src="https://github.com/user-attachments/assets/977ef3be-7efc-47ed-899c-839fe923947f" />
 
-> 📸 **Screenshot 19:** Input transformer configuration with the Input path and Template entered.
-
-> 📸 **Screenshot 20:** Final "Review and create" page before choosing Create rule.
-
-> 📸 **Screenshot 21:** EventBridge rules list showing `MonitorSecurityGroups` created.
+> <img width="1485" height="293" alt="image" src="https://github.com/user-attachments/assets/31cc8d48-3828-4e7c-bda2-a8ba10c0b811" />
 
 ### 6.4 Tested the Rule
 
@@ -176,22 +168,20 @@ By the end of this lab, I was able to:
   - **Source:** Anywhere-IPv4
 - **Save rules**.
 
-> 📸 **Screenshot 22:** Edit inbound rules dialog with the new SSH rule added before saving.
+> <img width="1905" height="526" alt="image" src="https://github.com/user-attachments/assets/987c3019-8039-4647-a38a-7c6431448ef7" />
 
 ### 6.5 Verified in CloudTrail
 
 - **CloudTrail console** → **Event history** → located the new **AuthorizeSecurityGroupIngress** event.
 - Opened the event and confirmed `fromPort`/`toPort` = **22** (not 80), matching the SSH rule just added.
 
-> 📸 **Screenshot 23:** CloudTrail Event history showing the new AuthorizeSecurityGroupIngress entry.
+> <img width="1615" height="397" alt="image" src="https://github.com/user-attachments/assets/9003c509-07f6-4edb-88f2-875ccbee159e" />
 
-> 📸 **Screenshot 24:** Event record showing fromPort/toPort = 22.
+> <img width="760" height="587" alt="image" src="https://github.com/user-attachments/assets/757ddc37-9fc9-444d-a5f7-0e28d02ba32c" />
 
 ### 6.6 Verified the Email Notification
 
 - Checked the subscribed inbox for a message from AWS Notifications describing the `AuthorizeSecurityGroupIngress` call.
-
-> 📸 **Screenshot 25:** Email received describing the AuthorizeSecurityGroupIngress event, matching the input transformer template.
 
 **Analysis:** The EventBridge rule matches on `AWS API Call via CloudTrail` events sourced from `ec2.amazonaws.com` with specific event names. Because the CloudTrail trail was already logging to CloudWatch, the matching API call triggered the rule, which used an **input transformer** to format a readable message and published it to the SNS topic — resulting in the email alert.
 
@@ -213,11 +203,11 @@ By the end of this lab, I was able to:
   - **Metric value:** `1`
 - Chose **Create metric filter**.
 
-> 📸 **Screenshot 26:** Filter pattern entry screen.
+> <img width="1568" height="281" alt="image" src="https://github.com/user-attachments/assets/22f285b0-615d-45fb-81b3-fbe101f5a478" />
 
-> 📸 **Screenshot 27:** Metric details screen (namespace, name, value) before creating the filter.
+> <img width="822" height="734" alt="image" src="https://github.com/user-attachments/assets/cb9a2aaf-d389-482b-8cb7-eb81d40686e2" />
 
-> 📸 **Screenshot 28:** Metric filters tab showing `ConsoleLoginErrors` created.
+> <img width="1563" height="646" alt="image" src="https://github.com/user-attachments/assets/5fced64a-65bf-42ee-8132-75a447024572" />
 
 ### 7.2 Created the Alarm
 
@@ -227,13 +217,13 @@ By the end of this lab, I was able to:
   - **Alarm name:** `FailedLogins`
 - Chose **Create alarm**.
 
-> 📸 **Screenshot 29:** Alarm condition screen (Greater/Equal, threshold = 3).
+> <img width="1476" height="440" alt="image" src="https://github.com/user-attachments/assets/f66b15d0-760d-4f41-bfb6-bd51a8ae3a75" />
 
-> 📸 **Screenshot 30:** Configure actions screen with MySNSTopic selected.
+> <img width="1510" height="670" alt="image" src="https://github.com/user-attachments/assets/1c772636-849c-4b6c-b0df-6c0fd882ad6c" />
 
-> 📸 **Screenshot 31:** Add name and description screen with "FailedLogins" entered.
+> <img width="1513" height="555" alt="image" src="https://github.com/user-attachments/assets/3fa16bb6-dc3a-431f-9477-de1a1fa54d6f" />
 
-> 📸 **Screenshot 32:** Alarms list showing `FailedLogins` created.
+> <img width="1580" height="401" alt="image" src="https://github.com/user-attachments/assets/6fbbc7ff-de4f-4a5b-9bf5-3af19250b521" />
 
 ### 7.3 Triggered the Alarm
 
@@ -242,37 +232,35 @@ By the end of this lab, I was able to:
   - **IAM user name:** `test`
   - **Password:** `test` (intentionally incorrect)
 
-> 📸 **Screenshot 33:** Console sign-in page with the test user's sign-in link loaded.
+> <img width="523" height="761" alt="image" src="https://github.com/user-attachments/assets/8265a33d-27f4-4b8a-afc6-ac4d5c5eff40" />
 
-> 📸 **Screenshot 34:** Failed authentication message shown after an incorrect login attempt (repeat as needed to show multiple attempts).
+> <img width="532" height="839" alt="image" src="https://github.com/user-attachments/assets/7136f4be-921a-473d-af0b-37e763eb32f5" />
 
 ### 7.4 Re-authenticated as voclabs
 
 - Closed all console tabs and reopened the console via the **AWS** link to restore the `voclabs` session.
-
-> 📸 **Screenshot 35:** Console reopened and signed in as voclabs again.
 
 ### 7.5 Graphed the Metric
 
 - **CloudWatch console** → **Metrics > All metrics** → **Custom namespaces > CloudTrailMetrics** → **Metrics with no dimensions** → `ConsoleLoginFailureCount`.
 - Observed a data point on the graph corresponding to the failed login attempts.
 
-> 📸 **Screenshot 36:** CloudWatch metric graph showing a data point for ConsoleLoginFailureCount.
+> <img width="1126" height="447" alt="image" src="https://github.com/user-attachments/assets/6feb8908-c5eb-4127-9e54-2e7d16603512" />
 
 ### 7.6 Checked the Alarm State
 
 - **Alarms > All alarms** → confirmed `FailedLogins` shows state **In alarm**.
 - Opened the alarm → **History** tab to confirm it was recently invoked.
 
-> 📸 **Screenshot 37:** Alarms list showing FailedLogins in "In alarm" state.
+> <img width="1920" height="390" alt="image" src="https://github.com/user-attachments/assets/ab5969f8-72f9-44e5-893d-e508f15eb36c" />
 
-> 📸 **Screenshot 38:** Alarm History tab showing the state transition.
+> <img width="1189" height="287" alt="image" src="https://github.com/user-attachments/assets/960275ee-ce69-456b-8243-77de0c04a55c" />
 
 ### 7.7 Verified the Email Notification
 
 - Checked the subscribed inbox for a message about multiple failed login attempts.
 
-> 📸 **Screenshot 39:** Email received from CloudWatch/SNS describing the failed login alarm.
+> <img width="1386" height="746" alt="image" src="https://github.com/user-attachments/assets/73085777-b624-4760-be2e-d229fd601deb" />
 
 **Analysis:** This pipeline differs from Task 3's: instead of EventBridge directly matching individual API events, a **CloudWatch metric filter** scans the CloudTrail log group for a specific pattern (`ConsoleLogin` events with `errorMessage = "Failed authentication"`), increments a custom metric for each match, and a **CloudWatch alarm** evaluates that metric against a threshold (≥3 within 5 minutes) before notifying the SNS topic.
 
@@ -291,9 +279,9 @@ filter eventSource="signin.amazonaws.com" and eventName="ConsoleLogin" and respo
 
 - Chose **Run query**.
 
-> 📸 **Screenshot 40:** Logs Insights query editor with the query entered, before running.
+> <img width="1888" height="233" alt="image" src="https://github.com/user-attachments/assets/550f8ea0-97f0-4835-962b-fb3f004e75bd" />
 
-> 📸 **Screenshot 41:** Query results table showing counts grouped by Source_IP, Reason, AWS_Region, and IAM_Arn.
+> <img width="1895" height="599" alt="image" src="https://github.com/user-attachments/assets/b2c7142b-d206-4f21-a763-90f7b1ae6b4d" />
 
 **Analysis:** This query aggregates all failed console sign-in attempts captured in the CloudTrail logs (including the ones generated against the `test` user in Task 4) and groups them by source IP, failure reason, Region, and the IAM identity attempted — a pattern useful for investigating brute-force login attempts or unauthorized access attempts.
 
