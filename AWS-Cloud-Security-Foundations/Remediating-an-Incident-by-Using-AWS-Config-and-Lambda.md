@@ -22,7 +22,7 @@ By the end of this lab, I was able to:
 - A default VPC with a default security group
 - A custom VPC (`Lab VPC`) containing security group `LabSG1`
 
-> 📸 **Screenshot 1:** Starting architecture diagram (from the lab overview page).
+> <img width="3138" height="1670" alt="image" src="https://github.com/user-attachments/assets/eea7ad3d-6764-4651-8b38-d266836303df" />
 
 ### 2.2 Ending Architecture
 
@@ -31,7 +31,7 @@ By the end of this lab, I was able to:
 - Lambda function auto-remediating any non-compliant inbound rule changes
 - CloudWatch Logs capturing the remediation actions
 
-> 📸 **Screenshot 2:** Ending architecture diagram showing the Config → Lambda → Security Group remediation flow.
+> <img width="3144" height="1680" alt="image" src="https://github.com/user-attachments/assets/2d969882-e81c-41d2-8a86-f445847c1425" />
 
 **Remediation flow:**
 1. The AWS Config rule monitors for changes to security groups tracked in the Config resource inventory.
@@ -49,7 +49,7 @@ By the end of this lab, I was able to:
   - `logs:CreateLogGroup`, `logs:CreateLogStream`, `logs:PutLogEvents` (for CloudWatch Logs)
   - `config:PutEvaluations`, `ec2:DescribeSecurityGroups`, `ec2:AuthorizeSecurityGroupIngress`, `ec2:RevokeSecurityGroupIngress` (for inspecting/modifying security group rules)
 
-> 📸 **Screenshot 4:** Expanded `awsconfig_lambda_ec2_sg_role_policy` JSON for AwsConfigLambdaSGRole.
+> <img width="1480" height="497" alt="image" src="https://github.com/user-attachments/assets/23dfda1b-bf75-4107-a210-9f6cc9d5dc31" />
 
 **Analysis:** This role will be attached to the Lambda function later, defining exactly what the function is permitted to do — log its activity and add/remove security group ingress rules.
 
@@ -58,11 +58,11 @@ By the end of this lab, I was able to:
 - **Roles** → `AwsConfigRole` → **Permissions** tab → expanded `S3Access` (existing policy: grants S3 ACL read + conditional object upload, used by AWS Config to deliver logs to S3).
 - **Add permissions > Attach policies** → searched **Config** → selected **AWS_ConfigRole** → **Add permissions**.
 
-> 📸 **Screenshot 5:** Existing S3Access policy expanded for AwsConfigRole.
+> <img width="1473" height="469" alt="image" src="https://github.com/user-attachments/assets/fd1fc195-0c69-4a16-9428-c789aa3a4d9a" />
 
-> 📸 **Screenshot 6:** Attach policies search results showing AWS_ConfigRole selected.
+> <img width="1863" height="557" alt="image" src="https://github.com/user-attachments/assets/6740db55-8b75-4406-aa8e-3c7d560e7993" />
 
-> 📸 **Screenshot 7:** AwsConfigRole permissions list after AWS_ConfigRole was successfully attached.
+> <img width="1421" height="544" alt="image" src="https://github.com/user-attachments/assets/39fc5a31-8392-441b-b8ab-ce90c5ba7e1b" />
 
 **Analysis:** `AWS_ConfigRole` grants broad read-level (`Get`/`List`/`Describe`) access across many services — this is what allows AWS Config to actually discover and evaluate the state of resources across the account.
 
@@ -79,21 +79,15 @@ By the end of this lab, I was able to:
 - **AWS Managed Rules** page → **Next** (no managed rules added).
 - Reviewed setup details → **Confirm**.
 
-> 📸 **Screenshot 8:** Recording strategy / resource type selection screen.
+> <img width="1369" height="626" alt="image" src="https://github.com/user-attachments/assets/27662a33-0d8f-496d-bf53-1dbbe7e40e21" />
 
-> 📸 **Screenshot 9:** IAM role selection screen showing AwsConfigRole chosen.
+> <img width="1358" height="326" alt="image" src="https://github.com/user-attachments/assets/f39c5d77-f8ad-4296-aab4-e391278b3907" />
 
-> 📸 **Screenshot 10:** Delivery channel settings (default S3 bucket).
-
-> 📸 **Screenshot 11:** Final review screen before choosing Confirm.
-
-> 📸 **Screenshot 12:** AWS Config Dashboard after setup completes.
+> <img width="1365" height="507" alt="image" src="https://github.com/user-attachments/assets/5f02f1ca-c5b5-4c77-9e3d-6f25d41984b6" />
 
 ### 5.1 Reviewed the Resource Inventory
 
 - **Resources** (left nav) → reviewed the Resource Inventory listing EC2-related resources.
-
-> 📸 **Screenshot 13:** Resource Inventory page listing discovered EC2 security groups and related resources (e.g., internet gateways, network ACLs).
 
 **Analysis:** Even though only `AWS EC2 SecurityGroup` was selected as the tracked resource type, AWS Config also surfaces **related** resources, since changes to those can affect the behavior of the primary tracked resources.
 
@@ -111,9 +105,9 @@ By the end of this lab, I was able to:
   - **Add rule:** IMAPS → Anywhere-IPv4
 - **Save rules**.
 
-> 📸 **Screenshot 14:** Edit inbound rules dialog showing all four rules (HTTP, HTTPS, SMTPS, IMAPS) configured before saving.
+> <img width="1809" height="586" alt="image" src="https://github.com/user-attachments/assets/e744a0b1-4c4f-48a6-a801-488581f5e5ad" />
 
-> 📸 **Screenshot 15:** LabSG1 inbound rules tab after saving, showing all four rules now present.
+> <img width="1487" height="638" alt="image" src="https://github.com/user-attachments/assets/eae131d6-82d1-4ca1-acc2-24c3b754243b" />
 
 **Note:** SMTPS and IMAPS are **not** part of the desired configuration — this step deliberately creates a non-compliant state that the Config rule + Lambda function will later detect and revert.
 
@@ -125,7 +119,7 @@ By the end of this lab, I was able to:
 
 - Opened the **AWS Details** panel and copied the `LambdaFunctionARN` value.
 
-> 📸 **Screenshot 16:** AWS Details panel showing the LambdaFunctionARN value.
+> <img width="829" height="662" alt="image" src="https://github.com/user-attachments/assets/e6f48fe1-3eb9-41d2-94f2-feb02fdee21f" />
 
 ### 7.2 Created the Custom Config Rule
 
@@ -141,13 +135,14 @@ By the end of this lab, I was able to:
   - **Parameters:** Key = `debug`, Value = `true`
 - **Next** → **Save**.
 
-> 📸 **Screenshot 17:** Rules list showing no rules defined before creating one.
+> <img width="1912" height="579" alt="image" src="https://github.com/user-attachments/assets/e7824bd7-322c-4295-a774-74ee0ecac005" />
 
-> 📸 **Screenshot 18:** "Configure rule" page with the Lambda ARN, name, description, and trigger type filled in.
+> <img width="1297" height="529" alt="image" src="https://github.com/user-attachments/assets/ab31c417-c1bf-4156-a9e2-1556658e1942" />
+> <img width="1359" height="620" alt="image" src="https://github.com/user-attachments/assets/a8185707-9e98-425e-a665-63257b18659d" />
 
-> 📸 **Screenshot 19:** Parameters section showing debug = true added.
+> <img width="1359" height="324" alt="image" src="https://github.com/user-attachments/assets/e670a08b-c308-490b-af69-41fa7a780e38" />
 
-> 📸 **Screenshot 20:** Rules list showing `EC2SecurityGroup` created after saving.
+> <img width="1881" height="622" alt="image" src="https://github.com/user-attachments/assets/878dcf2f-7416-4ae7-91c3-a25c0e0ccdfc" />
 
 ### 7.3 Observed Rule Evaluation
 
@@ -156,9 +151,9 @@ By the end of this lab, I was able to:
 - Waited for the **Compliance** value to change from "No results available" to **Compliant** for each in-scope security group.
 - Noted the **Annotation** column showing **"Permissions were modified."**
 
-> 📸 **Screenshot 21:** Rule details page showing "Last successful evaluation" with a timestamp.
+> <img width="1420" height="446" alt="image" src="https://github.com/user-attachments/assets/dd4bf70f-fdfe-4048-837c-e9bb28aa2fd7" />
 
-> 📸 **Screenshot 22:** Resources in scope list showing security groups now marked Compliant, with the "Permissions were modified" annotation visible.
+> <img width="1382" height="351" alt="image" src="https://github.com/user-attachments/assets/16079b7f-14b2-4bd5-9c8d-958a406b1416" />
 
 **Analysis:** Setting the trigger type to "When configuration changes," scoped to `AWS EC2 SecurityGroup`, means any modification to an in-scope security group automatically triggers a new compliance evaluation — which in turn invokes the Lambda function.
 
@@ -172,7 +167,7 @@ By the end of this lab, I was able to:
 - Observed that only **HTTP** and **HTTPS** rules remain — the SMTPS and IMAPS rules added in Task 3 are **gone**.
 - Also noted the HTTP/HTTPS rules now apply to both IPv4 **and** IPv6 (rather than just the IPv4 sources originally configured).
 
-> 📸 **Screenshot 23:** LabSG1 inbound rules tab now showing only HTTP and HTTPS rules (SMTPS/IMAPS removed).
+> <img width="1461" height="637" alt="image" src="https://github.com/user-attachments/assets/fcef1577-4488-409f-8d2b-3687d22ecc2c" />
 
 **Analysis:** The Lambda function automatically reverted the security group back to its desired (compliant) state — removing the unauthorized SMTPS/IMAPS rules added in Task 3 — confirming that the AWS Config rule successfully detected and remediated the simulated incident.
 
@@ -185,9 +180,9 @@ By the end of this lab, I was able to:
   - Line 117: calls `describe_security_groups()` to compare actual vs. required permissions.
   - Line 129: checks the `debug` parameter (set to `true` in Task 4) to control verbose logging output.
 
-> 📸 **Screenshot 24:** Lambda console Code source view showing the imports and REQUIRED_PERMISSIONS definition (lines 2 and 9 area).
+> <img width="1853" height="639" alt="image" src="https://github.com/user-attachments/assets/293b910c-1319-4bcb-8f81-dfcd1d43cfb7" />
 
-> 📸 **Screenshot 25:** Code view showing the describe_security_groups() call and the debug parameter check (lines ~117 and ~129).
+> <img width="810" height="62" alt="image" src="https://github.com/user-attachments/assets/5c211941-c28e-49b6-87d8-6cd1ece14a2e" />
 
 **Analysis:** The incident (manual modification) actually occurred *before* the Config rule and Lambda function existed, so the first compliance evaluation is what caught and fixed it. Going forward, **any future modification** to an in-scope security group (including the default security groups, which are also monitored) would trigger a new evaluation, re-invoke the Lambda function, and be automatically reverted to the desired state.
 
@@ -200,13 +195,11 @@ By the end of this lab, I was able to:
 - **Filter events** search field → entered `revoking` → pressed Enter.
 - Expanded matching log events and reviewed their contents.
 
-> 📸 **Screenshot 26:** Log group view showing multiple log streams.
+> <img width="1402" height="381" alt="image" src="https://github.com/user-attachments/assets/80245351-84ee-4074-a8dd-d0c8b422bf06" />
 
-> 📸 **Screenshot 27:** Filtered log events search for "revoking."
+> <img width="1501" height="613" alt="image" src="https://github.com/user-attachments/assets/bcf9d7a0-ce7d-4cb2-80f7-90348635798f" />
 
-> 📸 **Screenshot 28:** Expanded log event showing the SMTPS (port 465) and IMAPS (port 993) rules being revoked from LabSG1.
-
-> 📸 **Screenshot 29 (optional):** Additional filtered log events showing the Lambda function evaluating/remediating the other security groups in scope (e.g., the default security group).
+> <img width="1434" height="319" alt="image" src="https://github.com/user-attachments/assets/aa521d48-7493-434f-87db-eefd1040c878" />
 
 **Analysis:** The CloudWatch logs provide a clear audit trail confirming the Lambda function executed, identified the non-compliant inbound rules (SMTPS/IMAPS), and called `RevokeSecurityGroupIngress` to remove them — completing the automated remediation loop.
 
