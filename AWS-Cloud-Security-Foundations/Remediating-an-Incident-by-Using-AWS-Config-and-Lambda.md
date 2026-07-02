@@ -1,4 +1,4 @@
-# Lab 7.1: Remediating an Incident by Using AWS Config and Lambda
+# Remediating an Incident by Using AWS Config and Lambda
 ---
 
 ## 1. Objectives
