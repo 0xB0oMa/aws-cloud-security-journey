@@ -1,4 +1,4 @@
-Securing VPC Resources by Using Security Groups
+# Securing VPC Resources by Using Security Groups
 
 ---
 
