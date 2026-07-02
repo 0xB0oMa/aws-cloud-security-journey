@@ -65,17 +65,6 @@ Each lab includes:
 
 ---
 
-## 🧑‍💻 About Me
-
-Cybersecurity Master’s student focused on offensive & defensive security, cloud security, and infrastructure protection.
-
-Hands-on experience with:
-
-* AWS cloud labs
-* Hack The Box (penetration testing )
-
----
-
 ## 🚀 Progress
 
-This repository is continuously updated as I complete more labs and deepen my cloud security expertise.
+🔵 Finished – all modules and labs completed.
