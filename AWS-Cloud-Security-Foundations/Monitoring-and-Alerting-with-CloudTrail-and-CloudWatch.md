@@ -1,4 +1,4 @@
-# Lab 6.1: Monitoring and Alerting with CloudTrail and CloudWatch
+# Monitoring and Alerting with CloudTrail and CloudWatch
 ---
 
 ## 1. Objectives
