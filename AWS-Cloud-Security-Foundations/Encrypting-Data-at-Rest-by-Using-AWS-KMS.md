@@ -1,4 +1,4 @@
-# Lab 5.1: Encrypting Data at Rest by Using AWS KMS
+# Encrypting Data at Rest by Using AWS KMS
 
 ---
 
